@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "139407072156",
+    "firebase_url": "https://socialmeet-74000.firebaseio.com",
+    "project_id": "socialmeet-74000",
+    "storage_bucket": "socialmeet-74000.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139407072156:android:cb4a66e9219b34c30e0659",
+        "android_client_info": {
+          "package_name": "com.pernas.socialmeet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139407072156-ahc8gus15grrn1j8j90d6vj31ntqd1ru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBXnV0Te_H8PSfyHJxUs59Cn1yfmvnFho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139407072156-ahc8gus15grrn1j8j90d6vj31ntqd1ru.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
