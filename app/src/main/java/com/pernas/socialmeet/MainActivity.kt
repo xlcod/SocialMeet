@@ -2,10 +2,14 @@ package com.pernas.socialmeet
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_registrer.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,13 +23,47 @@ class MainActivity : AppCompatActivity() {
 
 
         val button = findViewById<Button>(R.id.registerButton)
-        button.setOnClickListener{
+        button.setOnClickListener {
             val intent = Intent(this, RegistrerActivity::class.java)
             startActivity(intent)
         }
 
+        loginButton.setOnClickListener {
+            doLogin()
+        }
+
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
+    }
+
+    private fun doLogin() {
+        if (emailField.text.isEmpty()) {
+            emailField.error = "Please enter Email"
+            emailField.requestFocus()
+            return
+        }
+
+        if (passwordField.text.isEmpty()) {
+            passwordField.error = "Please enter Password"
+            passwordField.requestFocus()
+            return
+        }
+
+
+        auth.signInWithEmailAndPassword(emailField.text.toString(), passwordField.text.toString())
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    updateUI(user)
+                } else {
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    updateUI(null)
+
+                }
+            }
     }
 
     public override fun onStart() {
@@ -35,7 +73,18 @@ class MainActivity : AppCompatActivity() {
         updateUI(currentUser)
     }
 
-    fun updateUI(currentUser: FirebaseUser?) {
+    private fun updateUI(currentUser: FirebaseUser?) {
+
+
+        if (currentUser != null) {
+            startActivity(Intent(this, QuedadasActivity::class.java))
+
+        } else {
+            Toast.makeText(
+                baseContext, "User not logged, please log in.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
     }
- }
+}
