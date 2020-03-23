@@ -27,7 +27,7 @@ class RegistrerActivity : AppCompatActivity() {
         signUpButton.setOnClickListener {
             signUpUser()
         }
-        buttonImagePicker.setOnClickListener {
+        profileImageView.setOnClickListener {
             if (VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                     //denied
@@ -79,29 +79,29 @@ class RegistrerActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            imageProfile.setImageURI(data?.data)
+            profileImageView.setImageURI(data?.data)
         }
     }
 
     fun signUpUser() {
-        if (usernameText.text.isEmpty()) {
-            usernameText.error = "Please enter Username"
-            usernameText.requestFocus()
+        if (usernameTextRegister.text?.isEmpty()!!) {
+            usernameTextRegister.error = "Please enter Username"
+            usernameTextRegister.requestFocus()
             return
         }
-        if (emailText.text.isEmpty()) {
-            emailText.error = "Please enter Email"
-            emailText.requestFocus()
+        if (emailTextRegister.text?.isEmpty()!!) {
+            emailTextRegister.error = "Please enter Email"
+            emailTextRegister.requestFocus()
             return
         }
-        if (passwordText.text.isEmpty()) {
-            passwordText.error = "Please enter Password"
-            passwordText.requestFocus()
+        if (passwordTextRegister.text?.isEmpty()!!) {
+            passwordTextRegister.error = "Please enter Password"
+            passwordTextRegister.requestFocus()
             return
         }
 
 
-        auth.createUserWithEmailAndPassword(emailText.text.toString(), passwordText.text.toString())
+        auth.createUserWithEmailAndPassword(emailTextRegister.text.toString(), passwordTextRegister.text.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     startActivity(Intent(this, MainActivity::class.java))

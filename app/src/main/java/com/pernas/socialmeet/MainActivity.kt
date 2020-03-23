@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isEmpty
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,18 +38,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doLogin() {
-        if (emailField.text.isEmpty()) {
-            emailField.error = "Please enter Email"
-            emailField.requestFocus()
+
+        if (emailField.text?.isEmpty()!!) {
+            emailLogin.error = "Please enter an Email"
             return
         }
-
-        if (passwordField.text.isEmpty()) {
-            passwordField.error = "Please enter Password"
-            passwordField.requestFocus()
+        if (passwordField.text?.isEmpty()!!) {
+            passwordLogin.error = "Please enter password"
             return
         }
-
 
         auth.signInWithEmailAndPassword(emailField.text.toString(), passwordField.text.toString())
             .addOnCompleteListener(this) { task ->
