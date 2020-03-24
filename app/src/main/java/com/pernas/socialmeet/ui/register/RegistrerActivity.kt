@@ -1,4 +1,4 @@
-package com.pernas.socialmeet
+package com.pernas.socialmeet.ui.register
 
 import android.app.Activity
 import android.content.Intent
@@ -7,11 +7,11 @@ import android.os.Build
 import android.os.Build.VERSION
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.pernas.socialmeet.ui.login.LoginActivity
+import com.pernas.socialmeet.R
 import kotlinx.android.synthetic.main.activity_registrer.*
-import java.util.jar.Manifest
 
 class RegistrerActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -33,7 +33,9 @@ class RegistrerActivity : AppCompatActivity() {
                     //denied
                     val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE);
                     //show popup to request runtime permission
-                    requestPermissions(permissions, PERMISION_CODE);
+                    requestPermissions(permissions,
+                        PERMISION_CODE
+                    );
                 } else {
                     //granted
                     pickImageFromGallery();
@@ -48,7 +50,9 @@ class RegistrerActivity : AppCompatActivity() {
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_PICK_CODE)
+        startActivityForResult(intent,
+            IMAGE_PICK_CODE
+        )
 
     }
 
@@ -104,7 +108,7 @@ class RegistrerActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(emailTextRegister.text.toString(), passwordTextRegister.text.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, LoginActivity::class.java))
                 } else {
 
                     Toast.makeText(

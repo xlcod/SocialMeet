@@ -12,9 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".QuedadasActivity"></activity>
-        <activity android:name=".RegistrerActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.quedadas.QuedadasActivity"></activity>
+        <activity android:name=".ui.register.RegistrerActivity" />
+        <activity android:name=".ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
