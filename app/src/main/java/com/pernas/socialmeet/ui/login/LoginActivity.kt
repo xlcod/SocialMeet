@@ -15,22 +15,26 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.pernas.socialmeet.R
+import com.pernas.socialmeet.ui.data.remote.RemoteRepoCalls
+import com.pernas.socialmeet.ui.data.remote.RemoteRepository
 import com.pernas.socialmeet.ui.quedadas.QuedadasActivity
 import com.pernas.socialmeet.ui.register.RegistrerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), LoginView {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var gso: GoogleSignInOptions
     private val RC_SIGN_IN: Int = 1
+    lateinit var presenter: LoginPresenter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val remoteRepository: RemoteRepository = RemoteRepoCalls()
 
         registerButton.setOnClickListener {
             val intent = Intent(this, RegistrerActivity::class.java)
@@ -38,12 +42,14 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginButton.setOnClickListener {
-            doLogin()
+            presenter.loginClicked(emailField.text.toString(), passwordField.text.toString())
+
         }
 
         google_button.setOnClickListener { view: View? ->
             signInGoogle()
         }
+        presenter = LoginPresenter(this, remoteRepository)
 
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
@@ -62,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        updateUI(currentUser)
+        openQuedadasActivity(currentUser)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -99,32 +105,51 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun doLogin() {
+/*private fun doLogin() {
 
-        if (emailField.text?.isEmpty()!!) {
-            emailLogin.error = "Please enter an Email"
-            return
-        }
-        if (passwordField.text?.isEmpty()!!) {
-            passwordLogin.error = "Please enter password"
-            return
-        }
-
-        auth.signInWithEmailAndPassword(emailField.text.toString(), passwordField.text.toString())
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    updateUI(user)
-                } else {
-                    Toast.makeText(
-                        baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
+    if (emailField.text?.isEmpty()!!) {
+        emailLogin.error = "Please enter an Email"
+        return
+    }
+    if (passwordField.text?.isEmpty()!!) {
+        passwordLogin.error = "Please enter password"
+        return
     }
 
-    private fun updateUI(currentUser: FirebaseUser?) {
+    auth.signInWithEmailAndPassword(emailField.text.toString(), passwordField.text.toString())
+        .addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                val user = auth.currentUser
+                updateUI(user)
+            } else {
+                Toast.makeText(
+                    baseContext, "Authentication failed.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+}
+
+private fun updateUI(currentUser: FirebaseUser?) {
+    if (currentUser != null) {
+        startActivity(Intent(this, QuedadasActivity::class.java))
+    } else {
+        Toast.makeText(
+            baseContext, "User not logged, please log in.",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+}*/
+
+    override fun showLoginSuccessfull() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showLoginError() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun openQuedadasActivity(currentUser: FirebaseUser?) {
         if (currentUser != null) {
             startActivity(Intent(this, QuedadasActivity::class.java))
         } else {
