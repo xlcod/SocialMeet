@@ -8,24 +8,38 @@ import android.os.Build.VERSION
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.pernas.socialmeet.ui.login.LoginActivity
 import com.pernas.socialmeet.R
+import com.pernas.socialmeet.ui.data.remote.RemoteRepoCalls
+import com.pernas.socialmeet.ui.data.remote.RemoteRepository
+import com.pernas.socialmeet.ui.login.LoginPresenter
+import com.pernas.socialmeet.ui.quedadas.QuedadasActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_registrer.*
 
-class RegistrerActivity : AppCompatActivity() {
+class RegistrerActivity : AppCompatActivity(), RegisterView {
     private lateinit var auth: FirebaseAuth
+    lateinit var presenter: RegisterPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registrer)
 
+        val remoteRepository: RemoteRepository = RemoteRepoCalls()
+        presenter = RegisterPresenter(this, remoteRepository)
 
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
         signUpButton.setOnClickListener {
-            signUpUser()
+            checkFields()
+            presenter.signUpClicked(
+                emailTextRegister.text.toString(),
+                passwordTextRegister.text.toString()
+            )
         }
         profileImageView.setOnClickListener {
             if (VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -33,7 +47,8 @@ class RegistrerActivity : AppCompatActivity() {
                     //denied
                     val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE);
                     //show popup to request runtime permission
-                    requestPermissions(permissions,
+                    requestPermissions(
+                        permissions,
                         PERMISION_CODE
                     );
                 } else {
@@ -50,7 +65,8 @@ class RegistrerActivity : AppCompatActivity() {
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent,
+        startActivityForResult(
+            intent,
             IMAGE_PICK_CODE
         )
 
@@ -87,35 +103,52 @@ class RegistrerActivity : AppCompatActivity() {
         }
     }
 
-    fun signUpUser() {
+    private fun checkFields() {
         if (usernameTextRegister.text?.isEmpty()!!) {
             usernameTextRegister.error = "Please enter Username"
-            usernameTextRegister.requestFocus()
             return
         }
         if (emailTextRegister.text?.isEmpty()!!) {
             emailTextRegister.error = "Please enter Email"
-            emailTextRegister.requestFocus()
             return
         }
         if (passwordTextRegister.text?.isEmpty()!!) {
             passwordTextRegister.error = "Please enter Password"
-            passwordTextRegister.requestFocus()
             return
         }
+    }
 
 
-        auth.createUserWithEmailAndPassword(emailTextRegister.text.toString(), passwordTextRegister.text.toString())
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    startActivity(Intent(this, LoginActivity::class.java))
-                } else {
+    override fun openQuedadasActivity(currentUser: FirebaseUser?) {
+        if (currentUser != null) {
+            startActivity(Intent(this, QuedadasActivity::class.java))
+        } else {
+            Toast.makeText(
+                baseContext, "User not logged, please log in.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 
-                    Toast.makeText(
-                        baseContext, "Sign up failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
+    override fun showSignUpSuccessful() {
+        Toast.makeText(
+            baseContext, "User SignUp success",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    override fun showSignUpError() {
+        Toast.makeText(
+            baseContext, "Check User/Password/Email fields ",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    override fun onProcessStarts() {
+        progressBarRegister.isVisible = true
+    }
+
+    override fun onProcessEnds() {
+        progressBarRegister.isVisible = false
     }
 }

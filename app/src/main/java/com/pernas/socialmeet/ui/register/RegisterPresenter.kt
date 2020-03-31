@@ -1,45 +1,45 @@
-package com.pernas.socialmeet.ui.login
+package com.pernas.socialmeet.ui.register
 
 import com.google.firebase.auth.FirebaseUser
 import com.pernas.socialmeet.ui.data.remote.RemoteRepository
+import com.pernas.socialmeet.ui.login.LoginView
 import kotlinx.coroutines.*
 import java.lang.Exception
 
-class LoginPresenter(
-    private val view: LoginView,
+class RegisterPresenter(
+    private val view: RegisterView,
     private val remoteRepository: RemoteRepository,
     private val mainDispatcher: CoroutineDispatcher = Dispatchers.Main,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-
 ) {
 
-    fun loginClicked(email: String, password: String) {
+    fun signUpClicked(email: String, password: String) {
         view.onProcessStarts()
 
         CoroutineScope(ioDispatcher).launch {
             try {
-                val user = remoteRepository.doLogin(email, password)
+                val user = remoteRepository.doRegister(email, password)
 
                 withContext(mainDispatcher) {
 
                     view.openQuedadasActivity(user)
                     view.onProcessEnds()
-                    view.showLoginSuccessful()
+                    view.showSignUpSuccessful()
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     view.onProcessEnds()
-                    view.showLoginError()
+                    view.showSignUpError()
                 }
             }
         }
     }
 }
 
-interface LoginView {
-    fun showLoginSuccessful()
-    fun showLoginError()
+interface RegisterView {
     fun openQuedadasActivity(user: FirebaseUser?)
+    fun showSignUpSuccessful()
+    fun showSignUpError()
     fun onProcessStarts()
     fun onProcessEnds()
 }

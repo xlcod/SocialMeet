@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -42,6 +43,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
         }
 
         loginButton.setOnClickListener {
+            checkFields()
             presenter.loginClicked(emailField.text.toString(), passwordField.text.toString())
 
         }
@@ -105,48 +107,30 @@ class LoginActivity : AppCompatActivity(), LoginView {
         }
     }
 
-/*private fun doLogin() {
-
-    if (emailField.text?.isEmpty()!!) {
-        emailLogin.error = "Please enter an Email"
-        return
-    }
-    if (passwordField.text?.isEmpty()!!) {
-        passwordLogin.error = "Please enter password"
-        return
-    }
-
-    auth.signInWithEmailAndPassword(emailField.text.toString(), passwordField.text.toString())
-        .addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
-                val user = auth.currentUser
-                updateUI(user)
-            } else {
-                Toast.makeText(
-                    baseContext, "Authentication failed.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+    private fun checkFields() {
+        if (emailField.text?.isEmpty()!!) {
+            emailLogin.error = "Please enter an Email"
+            return
         }
-}
+        if (passwordField.text?.isEmpty()!!) {
+            passwordLogin.error = "Please enter password"
+            return
+        }
+    }
 
-private fun updateUI(currentUser: FirebaseUser?) {
-    if (currentUser != null) {
-        startActivity(Intent(this, QuedadasActivity::class.java))
-    } else {
+
+    override fun showLoginSuccessful() {
         Toast.makeText(
-            baseContext, "User not logged, please log in.",
+            baseContext, "User logged successfully",
             Toast.LENGTH_SHORT
         ).show()
     }
-}*/
-
-    override fun showLoginSuccessfull() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun showLoginError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(
+            baseContext, "Check password/email",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun openQuedadasActivity(currentUser: FirebaseUser?) {
@@ -158,5 +142,13 @@ private fun updateUI(currentUser: FirebaseUser?) {
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+    override fun onProcessStarts() {
+        progressBar.isVisible = true
+    }
+
+    override fun onProcessEnds() {
+        progressBar.isVisible = false
     }
 }
