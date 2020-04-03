@@ -3,6 +3,9 @@ package com.pernas.socialmeet.ui.register
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Build.VERSION
 import androidx.appcompat.app.AppCompatActivity
@@ -19,10 +22,12 @@ import com.pernas.socialmeet.ui.login.LoginPresenter
 import com.pernas.socialmeet.ui.quedadas.QuedadasActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_registrer.*
+import java.io.ByteArrayOutputStream
 
 class RegistrerActivity : AppCompatActivity(), RegisterView {
     private lateinit var auth: FirebaseAuth
     lateinit var presenter: RegisterPresenter
+    private lateinit var filePath: ByteArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +43,9 @@ class RegistrerActivity : AppCompatActivity(), RegisterView {
             checkFields()
             presenter.signUpClicked(
                 emailTextRegister.text.toString(),
-                passwordTextRegister.text.toString()
+                passwordTextRegister.text.toString(),
+                usernameTextRegister.text.toString(),
+                filePath
             )
         }
         profileImageView.setOnClickListener {
@@ -100,6 +107,12 @@ class RegistrerActivity : AppCompatActivity(), RegisterView {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             profileImageView.setImageURI(data?.data)
+            //filePath = data?.data
+
+            val bitmap = (profileImageView.drawable as BitmapDrawable).bitmap
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            filePath = baos.toByteArray()
         }
     }
 
