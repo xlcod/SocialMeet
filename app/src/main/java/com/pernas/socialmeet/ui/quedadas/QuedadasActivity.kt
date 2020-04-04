@@ -3,34 +3,41 @@ package com.pernas.socialmeet.ui.quedadas
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.core.view.isVisible
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.google.firebase.auth.FirebaseAuth
 import com.pernas.socialmeet.ui.login.LoginActivity
 import com.pernas.socialmeet.R
+import com.pernas.socialmeet.ui.data.remote.RemoteRepoCalls
+import com.pernas.socialmeet.ui.data.remote.RemoteRepository
 import kotlinx.android.synthetic.main.activity_quedadas.*
+import kotlinx.android.synthetic.main.activity_quedadas.progressBar
 
-class QuedadasActivity : AppCompatActivity() {
+class QuedadasActivity : AppCompatActivity(),QuedadasView {
 
     private lateinit var auth: FirebaseAuth
+    lateinit var presenter: QuedadasPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quedadas)
-        // Initialize Firebase Auth
+
         auth = FirebaseAuth.getInstance()
 
+        val remoteRepository: RemoteRepository = RemoteRepoCalls()
+        presenter = QuedadasPresenter(this, remoteRepository)
+        presenter.getUserData(auth)
+
         logOutIcon.setOnClickListener {
-            signOut()
+            presenter.signOut(auth)
+            finish()
         }
-        getUserData()
-
+        val bottomNavigation = findViewById<MeowBottomNavigation>(R.id.bottomNavigation)
+        bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.quedadas_icon))
+        bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.profile_icon))
     }
 
-    private fun signOut() {
-        FirebaseAuth.getInstance().signOut()
-        finish()
-        startActivity(Intent(this, LoginActivity::class.java))
-    }
+
 
     private fun getUserData() {
         /*val user = FirebaseAuth.getInstance().currentUser
@@ -70,6 +77,22 @@ class QuedadasActivity : AppCompatActivity() {
         }*/
 
 
+    }
+
+    override fun closeSession() {
+        startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+    override fun onProcessStarts() {
+        progressBar.isVisible = true
+    }
+
+    override fun onProcessEnds() {
+        progressBar.isVisible = false
+    }
+
+    override fun showUserEmail(email: String?) {
+       emailTextView.text = email.toString()
     }
 }
 

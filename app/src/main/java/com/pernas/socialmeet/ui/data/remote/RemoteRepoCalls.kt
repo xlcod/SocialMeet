@@ -97,6 +97,40 @@ class RemoteRepoCalls() : RemoteRepository {
 
     }
 
+    override suspend fun signOut(auth : FirebaseAuth) {
+        auth.signOut()
+    }
+
+    override suspend fun getUserData(auth: FirebaseAuth): String? {
+
+            val user = auth.currentUser
+
+            var email = user?.email
+            return email
+
+
+        /* val user = FirebaseAuth.getInstance().currentUser
+         user?.let {
+             // Name, email address, and profile photo Url
+             val name = user.displayName
+             val email = user.email
+             val photoUrl = user.photoUrl
+
+             // Check if user's email is verified
+             val emailVerified = user.isEmailVerified
+
+             // The user's ID, unique to the Firebase project. Do NOT use this value to
+             // authenticate with your backend server, if you have one. Use
+             // FirebaseUser.getToken() instead.
+             val uid = user.uid
+
+             Log.e("uid", "${uid}")
+             Log.e("name", "${name}")
+             Log.e("email", "${email}")
+             Log.e("photoUrl", "${photoUrl}")
+         }*/
+    }
+
 
     override suspend fun saveFirestore(
         email: String,
