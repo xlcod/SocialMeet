@@ -62,6 +62,7 @@
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
@@ -103,6 +104,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.25" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButtonMain"
+        android:layout_width="wrap_content"
+        android:layout_height="97dp"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:layout_marginStart="339dp"
+        android:layout_marginTop="478dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="462dp"
+        android:src="@drawable/arrow_upward"
+        app:backgroundTint="#CF19B1"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButtonQuedadas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:visibility="invisible"
+        app:backgroundTint="#FFCF19B1"
+        app:layout_constraintBottom_toTopOf="@+id/floatingButtonMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/floatingButtonprofile"
+        app:srcCompat="@drawable/add_quedada" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButtonprofile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="260dp"
+        android:clickable="true"
+        android:visibility="invisible"
+        app:backgroundTint="#FFCF19B1"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/profile_icon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

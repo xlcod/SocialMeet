@@ -6,6 +6,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
@@ -16,6 +18,7 @@ import com.pernas.socialmeet.R
 import com.pernas.socialmeet.ui.MapActivity.MapsActivity
 import com.pernas.socialmeet.ui.data.remote.RemoteRepoCalls
 import com.pernas.socialmeet.ui.data.remote.RemoteRepository
+import com.pernas.socialmeet.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.activity_quedadas.*
 import kotlinx.android.synthetic.main.activity_quedadas.progressBar
 
@@ -25,6 +28,10 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
     lateinit var presenter: QuedadasPresenter
     private val id_quedadas = 1
     private val id_maps = 2
+    private  var isOpen: Boolean = true
+    private lateinit var mFabOpenAnim :Animation
+    private lateinit var mFabCloseAnim :Animation
+
 
     override fun onPause() {
         super.onPause()
@@ -51,7 +58,8 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
 
         bottomNavigation.show(1)
 
-
+        mFabOpenAnim = AnimationUtils.loadAnimation(this,R.anim.fab_open)
+        mFabCloseAnim = AnimationUtils.loadAnimation(this,R.anim.fab_close)
 
         bottomNavigation.setOnShowListener {
             Toast.makeText(
@@ -72,53 +80,25 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
                     }
             }
         }
+        floatingButtonMain.setOnClickListener {
 
 
+            if (isOpen) {
+                presenter.changeStateFloating(isOpen)
+                isOpen = false
+            }else{
+                presenter.changeStateFloating(isOpen)
+                isOpen = true
+            }
+        }
 
+        floatingButtonprofile.setOnClickListener {
+            startActivity(Intent(this,ProfileActivity::class.java),ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+        }
     }
 
 
 
-
-    private fun getUserData() {
-        /*val user = FirebaseAuth.getInstance().currentUser
-        user?.let {
-            for (profile in it.providerData) {
-                // Id of the provider (ex: google.com)
-                val providerId = profile.providerId
-
-                // UID specific to the provider
-                val uid = profile.uid
-
-                // Name, email address, and profile photo Url
-                val name = profile.displayName
-                val email = profile.email
-                val photoUrl = profile.photoUrl*/
-
-
-       /* val user = FirebaseAuth.getInstance().currentUser
-        user?.let {
-            // Name, email address, and profile photo Url
-            val name = user.displayName
-            val email = user.email
-            val photoUrl = user.photoUrl
-
-            // Check if user's email is verified
-            val emailVerified = user.isEmailVerified
-
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getToken() instead.
-            val uid = user.uid
-
-            Log.e("uid", "${uid}")
-            Log.e("name", "${name}")
-            Log.e("email", "${email}")
-            Log.e("photoUrl", "${photoUrl}")
-        }*/
-
-
-    }
 
     override fun closeSession() {
         startActivity(Intent(this, LoginActivity::class.java))
@@ -134,6 +114,26 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
 
     override fun showUserEmail(email: String?) {
        emailTextView.text = email.toString()
+    }
+
+    override fun showButtons() {
+
+        floatingButtonprofile.startAnimation(mFabOpenAnim)
+        floatingButtonQuedadas.startAnimation(mFabOpenAnim)
+
+        floatingButtonQuedadas.isVisible = true
+        floatingButtonprofile.isVisible = true
+
+    }
+
+    override fun hideButtons() {
+
+
+        floatingButtonprofile.startAnimation(mFabCloseAnim)
+        floatingButtonQuedadas.startAnimation(mFabCloseAnim)
+
+        floatingButtonQuedadas.isVisible = false
+        floatingButtonprofile.isVisible = false
     }
 }
 

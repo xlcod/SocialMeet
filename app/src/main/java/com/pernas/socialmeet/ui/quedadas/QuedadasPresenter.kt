@@ -52,6 +52,14 @@ class QuedadasPresenter(
         }
 
     }
+
+    fun changeStateFloating(status: Boolean) {
+        if (status) {
+            view.showButtons()
+        }else {
+            view.hideButtons()
+        }
+    }
 }
 
 interface QuedadasView {
@@ -59,5 +67,7 @@ interface QuedadasView {
     fun onProcessStarts()
     fun onProcessEnds()
     fun showUserEmail(email: String?)
+    fun showButtons()
+    fun hideButtons()
 }
 
