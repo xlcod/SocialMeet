@@ -3,6 +3,7 @@ package com.pernas.socialmeet.ui.quedadas
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.pernas.socialmeet.ui.data.remote.RemoteRepository
+import com.pernas.socialmeet.ui.model.User
 import kotlinx.coroutines.*
 import java.lang.Exception
 
@@ -37,11 +38,10 @@ class QuedadasPresenter(
         CoroutineScope(ioDispatcher).launch {
 
             try {
-                val email = remoteRepository.getUserData(auth)
-                view.showUserEmail(email)
+                var email: User? = remoteRepository.getUserData(auth)
 
                 withContext(mainDispatcher) {
-                    view.showUserEmail(email)
+                    view.showUserEmail(email?.email.toString())
 
                 }
             } catch (e: Exception) {

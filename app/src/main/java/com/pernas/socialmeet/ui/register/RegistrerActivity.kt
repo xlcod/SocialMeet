@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
 import android.os.Build
 import android.os.Build.VERSION
 import androidx.appcompat.app.AppCompatActivity
@@ -14,13 +13,10 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.pernas.socialmeet.ui.login.LoginActivity
 import com.pernas.socialmeet.R
 import com.pernas.socialmeet.ui.data.remote.RemoteRepoCalls
 import com.pernas.socialmeet.ui.data.remote.RemoteRepository
-import com.pernas.socialmeet.ui.login.LoginPresenter
 import com.pernas.socialmeet.ui.quedadas.QuedadasActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_registrer.*
 import java.io.ByteArrayOutputStream
 

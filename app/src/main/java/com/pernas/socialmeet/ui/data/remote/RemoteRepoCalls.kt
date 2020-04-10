@@ -9,8 +9,10 @@ import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.pernas.socialmeet.ui.model.User
 import kotlinx.coroutines.tasks.await
 
 
@@ -101,34 +103,33 @@ class RemoteRepoCalls() : RemoteRepository {
         auth.signOut()
     }
 
-    override suspend fun getUserData(auth: FirebaseAuth): String? {
+    override suspend fun getUserData(auth: FirebaseAuth): User? {
+        val db = FirebaseFirestore.getInstance()
 
-            val user = auth.currentUser
+          var uid: String? =   auth.currentUser?.uid
 
-            var email = user?.email
-            return email
+        /*val docRef = db.collection("users").document(uid.toString())
+        docRef.get().addOnSuccessListener { documentSnapshot ->
+            val city = documentSnapshot.toObject<User>()
+            Log.d("user",city?.username.toString())
+            Log.d("user3",city?.email.toString())
+            Log.d("user3",city?.imageProfile.toString())
+        }*/
 
 
-        /* val user = FirebaseAuth.getInstance().currentUser
-         user?.let {
-             // Name, email address, and profile photo Url
-             val name = user.displayName
-             val email = user.email
-             val photoUrl = user.photoUrl
+        return try{
+            val data = db
+                .collection("users")
+                .document(uid.toString())
+                .get()
+                .await()
+                .toObject<User>()
+                data
 
-             // Check if user's email is verified
-             val emailVerified = user.isEmailVerified
+        }catch (e : Exception){
+            null
+        }
 
-             // The user's ID, unique to the Firebase project. Do NOT use this value to
-             // authenticate with your backend server, if you have one. Use
-             // FirebaseUser.getToken() instead.
-             val uid = user.uid
-
-             Log.e("uid", "${uid}")
-             Log.e("name", "${name}")
-             Log.e("email", "${email}")
-             Log.e("photoUrl", "${photoUrl}")
-         }*/
     }
 
 
