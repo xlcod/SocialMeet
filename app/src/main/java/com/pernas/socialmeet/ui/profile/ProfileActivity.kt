@@ -22,7 +22,7 @@ class ProfileActivity : AppCompatActivity(),ProfileView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         auth = FirebaseAuth.getInstance()
 
         val remoteRepository: RemoteRepository = RemoteRepoCalls()
@@ -41,6 +41,6 @@ class ProfileActivity : AppCompatActivity(),ProfileView {
         username_field.text = user?.username.toString()
         username2_field.text = user?.username.toString()
         email_field.text = user?.email.toString()
-        Picasso.get().load(user?.imageProfile.toString()).into(iconProfile);
+        Picasso.get().load(user?.imageProfile.toString()).into(iconProfile)
     }
 }

@@ -48,15 +48,15 @@ class RegistrerActivity : AppCompatActivity(), RegisterView {
             if (VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                     //denied
-                    val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+                    val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
                     //show popup to request runtime permission
                     requestPermissions(
                         permissions,
                         PERMISION_CODE
-                    );
+                    )
                 } else {
                     //granted
-                    pickImageFromGallery();
+                    pickImageFromGallery()
                 }
 
             } else {
@@ -77,9 +77,9 @@ class RegistrerActivity : AppCompatActivity(), RegisterView {
 
     companion object {
         //image picker
-        private val IMAGE_PICK_CODE = 1000;
+        private val IMAGE_PICK_CODE = 1000
         //Permision code
-        private val PERMISION_CODE = 1001;
+        private val PERMISION_CODE = 1001
     }
 
     override fun onRequestPermissionsResult(
@@ -91,9 +91,9 @@ class RegistrerActivity : AppCompatActivity(), RegisterView {
         when (requestCode) {
             PERMISION_CODE -> {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    pickImageFromGallery();
+                    pickImageFromGallery()
                 } else {
-                    Toast.makeText(this, "Permission DENIED ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Permission DENIED ", Toast.LENGTH_SHORT).show()
                 }
             }
         }

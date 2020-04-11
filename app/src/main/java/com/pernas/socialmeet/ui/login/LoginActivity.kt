@@ -3,6 +3,7 @@ package com.pernas.socialmeet.ui.login
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -99,7 +100,9 @@ class LoginActivity : AppCompatActivity(), LoginView {
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
             firebaseAuthWithGoogle(account)
         } catch (e: ApiException) {
+            Log.e("algo mal","muy mal")
             Toast.makeText(this, toString(), Toast.LENGTH_LONG).show()
+            Log.e("ERRROR HANDLE RESULT " ,e.toString())
 
         }
     }
@@ -108,6 +111,12 @@ class LoginActivity : AppCompatActivity(), LoginView {
         val credential = GoogleAuthProvider.getCredential(acct?.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
+                val user = FirebaseAuth.getInstance().currentUser
+                val name = user?.displayName
+                val email = user?.email
+                val photoUrl = user?.photoUrl
+                val uid = user?.uid
+                presenter.saveFirestore(email.toString(),name.toString(),uid,photoUrl.toString())
                 startActivity(Intent(this, QuedadasActivity::class.java))
             } else {
                 Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()

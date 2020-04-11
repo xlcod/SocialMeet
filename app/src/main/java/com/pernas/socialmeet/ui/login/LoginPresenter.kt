@@ -34,6 +34,22 @@ class LoginPresenter(
             }
         }
     }
+
+    fun saveFirestore(email: String,username: String,uid: String?,imageUrl : String) {
+        CoroutineScope(ioDispatcher).launch {
+            try {
+                 remoteRepository.saveFirestore(email, username,uid,imageUrl)
+
+
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+
+                }
+            }
+        }
+
+
+    }
 }
 
 interface LoginView {

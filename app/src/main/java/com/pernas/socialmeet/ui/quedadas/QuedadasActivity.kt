@@ -35,13 +35,13 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
 
     override fun onPause() {
         super.onPause()
-        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
     }
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quedadas)
-        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         auth = FirebaseAuth.getInstance()
 
         val remoteRepository: RemoteRepository = RemoteRepoCalls()

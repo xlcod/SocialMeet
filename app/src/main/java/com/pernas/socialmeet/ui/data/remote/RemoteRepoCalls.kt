@@ -16,7 +16,7 @@ import com.pernas.socialmeet.ui.model.User
 import kotlinx.coroutines.tasks.await
 
 
-class RemoteRepoCalls() : RemoteRepository {
+class RemoteRepoCalls : RemoteRepository {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -147,7 +147,7 @@ class RemoteRepoCalls() : RemoteRepository {
             "email" to "${email}",
             "id" to "${uid}",
             "imageProfile" to "${imageUrl}",
-            "quedadas" to "pruebita",
+            "quedadas" to "hola manu ",
             "username" to "${username}"
         )
 
