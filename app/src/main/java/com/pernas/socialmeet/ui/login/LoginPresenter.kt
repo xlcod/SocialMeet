@@ -1,5 +1,6 @@
 package com.pernas.socialmeet.ui.login
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseUser
 import com.pernas.socialmeet.ui.data.remote.RemoteRepository
 import kotlinx.coroutines.*
@@ -47,8 +48,24 @@ class LoginPresenter(
                 }
             }
         }
+    }
 
+      fun checkUserGoogle(): String? {
+        CoroutineScope(ioDispatcher).launch {
+            try {
+                var googleUser = remoteRepository.checkifUserExist()
+                Log.e("TESTUID DESDE PRESEnter", googleUser.toString())
+                withContext(mainDispatcher) {
+                   view.checkGoogleUser(googleUser)
+                }
 
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+
+                }
+            }
+        }
+        return null
     }
 }
 
@@ -58,4 +75,6 @@ interface LoginView {
     fun openQuedadasActivity(user: FirebaseUser?)
     fun onProcessStarts()
     fun onProcessEnds()
+    fun checkGoogleUser(gUser: String?): Boolean
+
 }

@@ -12,5 +12,6 @@ interface RemoteRepository {
     suspend fun saveImageFirestore(email: String,username: String,image: ByteArray?,uid: String?)
     suspend fun signOut(auth : FirebaseAuth)
     suspend fun getUserData(auth : FirebaseAuth): User?
+    suspend fun checkifUserExist(): String?
 }
 

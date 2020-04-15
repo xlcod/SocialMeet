@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.pernas.socialmeet.R
 import com.pernas.socialmeet.ui.data.remote.RemoteRepoCalls
 import com.pernas.socialmeet.ui.data.remote.RemoteRepository
@@ -43,8 +45,9 @@ class LoginActivity : AppCompatActivity(), LoginView {
         setContentView(R.layout.activity_main)
 
 
-
         val remoteRepository: RemoteRepository = RemoteRepoCalls()
+        presenter = LoginPresenter(this, remoteRepository)
+
 
         registerButton.setOnClickListener {
             val intent = Intent(this, RegistrerActivity::class.java)
@@ -60,7 +63,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
         google_button.setOnClickListener { view: View? ->
             signInGoogle()
         }
-        presenter = LoginPresenter(this, remoteRepository)
+
 
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
@@ -100,24 +103,57 @@ class LoginActivity : AppCompatActivity(), LoginView {
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
             firebaseAuthWithGoogle(account)
         } catch (e: ApiException) {
-            Log.e("algo mal","muy mal")
+            Log.e("algo mal", "muy mal")
             Toast.makeText(this, toString(), Toast.LENGTH_LONG).show()
-            Log.e("ERRROR HANDLE RESULT " ,e.toString())
+            Log.e("ERRROR HANDLE RESULT ", e.toString())
 
         }
     }
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount?) {
+        var db = Firebase.firestore
+
         val credential = GoogleAuthProvider.getCredential(acct?.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                val user = FirebaseAuth.getInstance().currentUser
-                val name = user?.displayName
-                val email = user?.email
-                val photoUrl = user?.photoUrl
-                val uid = user?.uid
-                presenter.saveFirestore(email.toString(),name.toString(),uid,photoUrl.toString())
-                startActivity(Intent(this, QuedadasActivity::class.java))
+
+                //presenter.checkGUser()
+
+                var uid: String? = auth.currentUser?.uid
+
+                var db = Firebase.firestore
+
+                db.collection("users")
+                    .whereEqualTo("id", uid.toString())
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            Log.d("ENTRA ", "ENtra?")
+                            Log.d("ha encontrado", "${document.id} => ${document.data}")
+                        }
+                        if (documents.isEmpty) {
+                            //crea la cuenta
+                            val user = FirebaseAuth.getInstance().currentUser
+                            val name = user?.displayName
+                            val email = user?.email
+                            val photoUrl = user?.photoUrl
+                            val uid = user?.uid
+                            presenter.saveFirestore(
+                                email.toString(),
+                                name.toString(),
+                                uid,
+                                photoUrl.toString()
+                            )
+                            startActivity(Intent(this, QuedadasActivity::class.java))
+
+                        } else {
+                            startActivity(Intent(this, QuedadasActivity::class.java))
+                        }
+
+                    }
+                    .addOnFailureListener { exception ->
+                    }
+
             } else {
                 Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
             }
@@ -167,5 +203,14 @@ class LoginActivity : AppCompatActivity(), LoginView {
 
     override fun onProcessEnds() {
         progressBar.isVisible = false
+    }
+
+    override fun checkGoogleUser(gUser: String?): Boolean {
+        Log.e("MI UID", gUser.toString())
+        if (gUser == null) {
+            return false
+        } else {
+            return true
+        }
     }
 }

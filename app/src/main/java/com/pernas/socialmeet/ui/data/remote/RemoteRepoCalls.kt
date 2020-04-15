@@ -99,14 +99,14 @@ class RemoteRepoCalls : RemoteRepository {
 
     }
 
-    override suspend fun signOut(auth : FirebaseAuth) {
+    override suspend fun signOut(auth: FirebaseAuth) {
         auth.signOut()
     }
 
     override suspend fun getUserData(auth: FirebaseAuth): User? {
         val db = FirebaseFirestore.getInstance()
 
-          var uid: String? =   auth.currentUser?.uid
+        var uid: String? = auth.currentUser?.uid
 
         /*val docRef = db.collection("users").document(uid.toString())
         docRef.get().addOnSuccessListener { documentSnapshot ->
@@ -117,19 +117,25 @@ class RemoteRepoCalls : RemoteRepository {
         }*/
 
 
-        return try{
+        return try {
             val data = db
                 .collection("users")
                 .document(uid.toString())
                 .get()
                 .await()
                 .toObject<User>()
-                data
+            data
 
-        }catch (e : Exception){
+        } catch (e: Exception) {
             null
         }
 
+    }
+
+    override suspend fun checkifUserExist(): String? {
+        var uid: String? = auth.currentUser?.uid
+        Log.e("testrepo",uid.toString())
+        return uid
     }
 
 
@@ -147,7 +153,7 @@ class RemoteRepoCalls : RemoteRepository {
             "email" to "${email}",
             "id" to "${uid}",
             "imageProfile" to "${imageUrl}",
-            "quedadas" to "hola manu ",
+            "quedadas" to "bieen",
             "username" to "${username}"
         )
 
