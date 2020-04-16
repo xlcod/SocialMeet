@@ -1,6 +1,6 @@
 package com.pernas.socialmeet.ui.data.remote
 
-import android.net.Uri
+
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.pernas.socialmeet.ui.model.User
@@ -12,6 +12,6 @@ interface RemoteRepository {
     suspend fun saveImageFirestore(email: String,username: String,image: ByteArray?,uid: String?)
     suspend fun signOut(auth : FirebaseAuth)
     suspend fun getUserData(auth : FirebaseAuth): User?
-    suspend fun checkifUserExist(): String?
+    suspend fun checkifUserExist(user: FirebaseUser?,name:String?,email: String?,photoUrl: String?,uid: String?): Boolean
 }
 

@@ -36,27 +36,13 @@ class LoginPresenter(
         }
     }
 
-    fun saveFirestore(email: String,username: String,uid: String?,imageUrl : String) {
+    fun checkUserGoogle(user: FirebaseUser?,name:String?,email: String?,photoUrl: String?,uid: String?) {
+        view.onProcessStarts()
         CoroutineScope(ioDispatcher).launch {
             try {
-                 remoteRepository.saveFirestore(email, username,uid,imageUrl)
-
-
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-
-                }
-            }
-        }
-    }
-
-      fun checkUserGoogle(): String? {
-        CoroutineScope(ioDispatcher).launch {
-            try {
-                var googleUser = remoteRepository.checkifUserExist()
-                Log.e("TESTUID DESDE PRESEnter", googleUser.toString())
+                var googleUser = remoteRepository.checkifUserExist(user,name,email,photoUrl,uid)
                 withContext(mainDispatcher) {
-                   view.checkGoogleUser(googleUser)
+                    view.onProcessEnds()
                 }
 
             } catch (e: Exception) {
@@ -65,7 +51,6 @@ class LoginPresenter(
                 }
             }
         }
-        return null
     }
 }
 
@@ -75,6 +60,4 @@ interface LoginView {
     fun openQuedadasActivity(user: FirebaseUser?)
     fun onProcessStarts()
     fun onProcessEnds()
-    fun checkGoogleUser(gUser: String?): Boolean
-
 }

@@ -111,48 +111,16 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount?) {
-        var db = Firebase.firestore
-
         val credential = GoogleAuthProvider.getCredential(acct?.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-
-                //presenter.checkGUser()
-
-                var uid: String? = auth.currentUser?.uid
-
-                var db = Firebase.firestore
-
-                db.collection("users")
-                    .whereEqualTo("id", uid.toString())
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                            Log.d("ENTRA ", "ENtra?")
-                            Log.d("ha encontrado", "${document.id} => ${document.data}")
-                        }
-                        if (documents.isEmpty) {
-                            //crea la cuenta
-                            val user = FirebaseAuth.getInstance().currentUser
-                            val name = user?.displayName
-                            val email = user?.email
-                            val photoUrl = user?.photoUrl
-                            val uid = user?.uid
-                            presenter.saveFirestore(
-                                email.toString(),
-                                name.toString(),
-                                uid,
-                                photoUrl.toString()
-                            )
-                            startActivity(Intent(this, QuedadasActivity::class.java))
-
-                        } else {
-                            startActivity(Intent(this, QuedadasActivity::class.java))
-                        }
-
-                    }
-                    .addOnFailureListener { exception ->
-                    }
+                val user = FirebaseAuth.getInstance().currentUser
+                val name = user?.displayName
+                val email = user?.email
+                val photoUrl = user?.photoUrl
+                val uid = user?.uid
+                presenter.checkUserGoogle(user,name.toString(),email.toString(),photoUrl.toString(),uid.toString())
+                startActivityGoogleUser()
 
             } else {
                 Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
@@ -169,6 +137,9 @@ class LoginActivity : AppCompatActivity(), LoginView {
             passwordLogin.error = "Please enter password"
             return
         }
+    }
+    private fun startActivityGoogleUser() {
+        startActivity(Intent(this, QuedadasActivity::class.java))
     }
 
 
@@ -205,12 +176,5 @@ class LoginActivity : AppCompatActivity(), LoginView {
         progressBar.isVisible = false
     }
 
-    override fun checkGoogleUser(gUser: String?): Boolean {
-        Log.e("MI UID", gUser.toString())
-        if (gUser == null) {
-            return false
-        } else {
-            return true
-        }
-    }
+
 }

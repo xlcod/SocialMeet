@@ -1,6 +1,8 @@
 package com.pernas.socialmeet.ui.data.remote
 
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -13,6 +15,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.pernas.socialmeet.ui.model.User
+import com.pernas.socialmeet.ui.quedadas.QuedadasActivity
 import kotlinx.coroutines.tasks.await
 
 
@@ -108,14 +111,6 @@ class RemoteRepoCalls : RemoteRepository {
 
         var uid: String? = auth.currentUser?.uid
 
-        /*val docRef = db.collection("users").document(uid.toString())
-        docRef.get().addOnSuccessListener { documentSnapshot ->
-            val city = documentSnapshot.toObject<User>()
-            Log.d("user",city?.username.toString())
-            Log.d("user3",city?.email.toString())
-            Log.d("user3",city?.imageProfile.toString())
-        }*/
-
 
         return try {
             val data = db
@@ -132,10 +127,41 @@ class RemoteRepoCalls : RemoteRepository {
 
     }
 
-    override suspend fun checkifUserExist(): String? {
-        var uid: String? = auth.currentUser?.uid
-        Log.e("testrepo",uid.toString())
-        return uid
+    override suspend fun checkifUserExist(
+        user: FirebaseUser?,
+        name: String?,
+        email: String?,
+        photoUrl: String?,
+        uid: String?
+    ): Boolean {
+        val db = Firebase.firestore
+        var condition = true
+
+        try {
+            val answer = db
+                .collection("users")
+                .whereEqualTo("id", uid.toString())
+                .get()
+                .await()
+                .documents
+                .isEmpty()
+            Log.e("varible", answer.toString())
+
+            if (answer == true) {
+                saveFirestore(
+                    email.toString(),
+                    name.toString(),
+                    uid.toString(),
+                    photoUrl.toString()
+                )
+                condition = false
+            } else {
+                condition = false
+            }
+        } catch (e: Exception) {
+            Log.e("eerorcheckuserifexist", e.toString())
+        }
+        return condition
     }
 
 
@@ -153,7 +179,7 @@ class RemoteRepoCalls : RemoteRepository {
             "email" to "${email}",
             "id" to "${uid}",
             "imageProfile" to "${imageUrl}",
-            "quedadas" to "bieen",
+            "quedadas" to "no te cambies a esto",
             "username" to "${username}"
         )
 
