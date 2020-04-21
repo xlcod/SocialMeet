@@ -38,7 +38,9 @@ class QuedadasPresenter(
         CoroutineScope(ioDispatcher).launch {
 
             try {
+
                 var email: User? = remoteRepository.getUserData(auth)
+                remoteRepository.getQuedadas()
 
                 withContext(mainDispatcher) {
                     view.showUserEmail(email?.email.toString())
