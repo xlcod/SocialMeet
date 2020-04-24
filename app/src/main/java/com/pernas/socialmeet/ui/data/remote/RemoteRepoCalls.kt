@@ -1,24 +1,17 @@
 package com.pernas.socialmeet.ui.data.remote
 
 
-import android.content.ContentValues.TAG
-import android.content.Intent
-import android.net.Uri
 import android.util.Log
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.pernas.socialmeet.ui.model.User
-import com.pernas.socialmeet.ui.quedadas.QuedadasActivity
 import kotlinx.coroutines.tasks.await
 import java.util.ArrayList
 
@@ -26,11 +19,7 @@ import java.util.ArrayList
 class RemoteRepoCalls : RemoteRepository {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
-    private lateinit var gso: GoogleSignInOptions
     private lateinit var db: FirebaseFirestore
-    private val RC_SIGN_IN: Int = 1
-
 
     override suspend fun doLogin(email: String, password: String): FirebaseUser? {
         auth = FirebaseAuth.getInstance()
@@ -54,15 +43,11 @@ class RemoteRepoCalls : RemoteRepository {
                 email, password
             ).await()
             val user = auth.currentUser
-
-            var id = user?.uid
-
+            val id = user?.uid
 
             saveImageFirestore(email, username, image, id)
 
             return auth.currentUser ?: throw FirebaseAuthException("error", "try later")
-
-
         } catch (e: Exception) {
             Log.e("ERROR", "SOMETHING WENT WRONG")
             return null
@@ -78,16 +63,12 @@ class RemoteRepoCalls : RemoteRepository {
     ) {
         if (image == null) return
 
-        var storage = Firebase.storage
-
+        val storage = Firebase.storage
         val storageRef = storage.reference
-
-
         val usersRef = storageRef.child("users/${uid}")
 
-
         try {
-            var url = usersRef
+            val url = usersRef
                 .putBytes(image)
                 .await()
                 .storage
@@ -102,8 +83,6 @@ class RemoteRepoCalls : RemoteRepository {
             Log.e("ERROR", "SOMETHING WENT WRONG")
 
         }
-
-
     }
 
     override suspend fun signOut(auth: FirebaseAuth) {
@@ -113,7 +92,7 @@ class RemoteRepoCalls : RemoteRepository {
     override suspend fun getUserData(auth: FirebaseAuth): User? {
         val db = FirebaseFirestore.getInstance()
 
-        var uid: String? = auth.currentUser?.uid
+        val uid: String? = auth.currentUser?.uid
 
 
 
@@ -152,7 +131,7 @@ class RemoteRepoCalls : RemoteRepository {
                 .isEmpty()
             Log.e("varible", answer.toString())
 
-            if (answer == true) {
+            if (answer) {
                 saveFirestore(
                     email.toString(),
                     name.toString(),
@@ -169,62 +148,41 @@ class RemoteRepoCalls : RemoteRepository {
         return condition
     }
 
-    override suspend fun getQuedadas() {
+    override suspend fun getQuedadas(): HashMap<Any, Any> {
         val db = Firebase.firestore
-        var auth = FirebaseAuth.getInstance()
+        val auth = FirebaseAuth.getInstance()
         val hashMap = HashMap<Any, Any>()
-        var uid: String? = auth.currentUser?.uid
+        val uid: String? = auth.currentUser?.uid
 
         try {
-
-            var docRef = db.document("users/${uid.toString()}")
-
-            var dataa = docRef
+            val docRef = db.document("users/${uid.toString()}")
+            val dataa = docRef
                 .get()
                 .await()
                 .get("quedadas") as ArrayList<*>
 
-
-            Log.d("TST QUEDADAS", dataa?.toString())
-            for (element in dataa) {
-                println(element)
-            }
-            var index = dataa.count()
-
+            val index = dataa.count()
 
 
             if (index != 0) {
                 for (i in 0 until index) {
-                    var quedadasReference = dataa[i] as DocumentReference
-                    var test = quedadasReference.get().await().data
+                    val quedadasReference = dataa[i] as DocumentReference
+                    val test = quedadasReference.get().await().data
                     if (test != null) {
                         for (element in test) {
-                            //print(test["id"])
-                            //print(element)
-                            var image  = test["imageQuedada"]!!
-                            hashMap.put(test["id"]!!,test)
-                            //println(element)
-
-                            println(image.toString())
-
+                            val data = test.values
+                            hashMap.put(test["id"]!!.toString(), data)
                         }
-
-                        //println(hashMap)
                     }
                 }
-                Log.e("holi",hashMap.toString())
-                for(key in hashMap.keys){
-                    println(key.toString())
-                    println("Element at key $key : ${hashMap[key]}")
-                }
+                return hashMap
             } else {
-            Log.e("ERROR QUEDADAS","NO SE HA ENCONTRADO RESULTADO DE QUEDADAS")
+                Log.e("ERROR QUEDADAS", "NO SE HA ENCONTRADO RESULTADO DE QUEDADAS")
             }
-
-
         } catch (e: Exception) {
             Log.e("eerorcheckuserifexist", e.toString())
         }
+        return hashMap
     }
 
 
@@ -236,13 +194,7 @@ class RemoteRepoCalls : RemoteRepository {
     ) {
         db = Firebase.firestore
 
-
-        /*val nestedData = hashMapOf(
-            "a" to 5,
-            "b" to true
-        )*/
         val list = arrayListOf<String>()
-        //arrayListOf("")
 
         val user: HashMap<String, Any> = hashMapOf(
             "email" to "${email}",
@@ -252,11 +204,8 @@ class RemoteRepoCalls : RemoteRepository {
             "username" to "${username}"
         )
 
-
-
         db.collection("users").document("${uid}")
             .set(user)
             .await()
-
     }
 }

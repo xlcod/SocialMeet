@@ -3,9 +3,9 @@ package com.pernas.socialmeet.ui.quedadas
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.pernas.socialmeet.ui.data.remote.RemoteRepository
+import com.pernas.socialmeet.ui.model.Quedada
 import com.pernas.socialmeet.ui.model.User
 import kotlinx.coroutines.*
-import java.lang.Exception
 
 
 class QuedadasPresenter(
@@ -34,6 +34,7 @@ class QuedadasPresenter(
             }
         }
     }
+
     fun getUserData(auth: FirebaseAuth) {
         CoroutineScope(ioDispatcher).launch {
 
@@ -48,7 +49,34 @@ class QuedadasPresenter(
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Log.e("Wrong","sometging went wrong")
+                    Log.e("Wrong", "sometging went wrong")
+                }
+            }
+        }
+
+    }
+
+    fun getQuedadas() {
+
+        CoroutineScope(ioDispatcher).launch {
+            try {
+                Log.d("Entra quedadas?", "SI ENTRA")
+                var quedadas: HashMap<Any, Any> = remoteRepository.getQuedadas()
+
+
+
+
+                Log.d("Entra quedadas?", quedadas.toString())
+                withContext(mainDispatcher) {
+                    if (quedadas.isEmpty()) {
+                        view.showEmpty()
+                        return@withContext
+                    }
+                    view.showQuedadas(quedadas)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Log.e("Wrong", "sometging went wrong")
                 }
             }
         }
@@ -58,7 +86,7 @@ class QuedadasPresenter(
     fun changeStateFloating(status: Boolean) {
         if (status) {
             view.showButtons()
-        }else {
+        } else {
             view.hideButtons()
         }
     }
@@ -71,5 +99,7 @@ interface QuedadasView {
     fun showUserEmail(email: String?)
     fun showButtons()
     fun hideButtons()
+    fun showQuedadas(hash: HashMap<Any, Any>)
+    fun showEmpty()
 }
 

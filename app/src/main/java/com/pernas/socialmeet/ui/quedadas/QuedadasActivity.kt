@@ -6,11 +6,13 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.google.firebase.auth.FirebaseAuth
 import com.pernas.socialmeet.ui.login.LoginActivity
@@ -18,6 +20,7 @@ import com.pernas.socialmeet.R
 import com.pernas.socialmeet.ui.MapActivity.MapsActivity
 import com.pernas.socialmeet.ui.data.remote.RemoteRepoCalls
 import com.pernas.socialmeet.ui.data.remote.RemoteRepository
+import com.pernas.socialmeet.ui.model.Quedada
 import com.pernas.socialmeet.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.activity_quedadas.*
 import kotlinx.android.synthetic.main.activity_quedadas.progressBar
@@ -31,6 +34,7 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
     private  var isOpen: Boolean = true
     private lateinit var mFabOpenAnim :Animation
     private lateinit var mFabCloseAnim :Animation
+    private lateinit var quedadasAdapter: QuedadasAdapter
 
 
     override fun onPause() {
@@ -43,10 +47,16 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
         setContentView(R.layout.activity_quedadas)
         overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         auth = FirebaseAuth.getInstance()
-
         val remoteRepository: RemoteRepository = RemoteRepoCalls()
         presenter = QuedadasPresenter(this, remoteRepository)
         presenter.getUserData(auth)
+
+        quedadasRecyclerView.layoutManager = LinearLayoutManager(this)
+        quedadasRecyclerView.setHasFixedSize(true)
+        quedadasAdapter = QuedadasAdapter()
+        quedadasRecyclerView.adapter = quedadasAdapter
+
+        presenter.getQuedadas()
 
         logOutIcon.setOnClickListener {
             presenter.signOut(auth)
@@ -60,6 +70,8 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
 
         mFabOpenAnim = AnimationUtils.loadAnimation(this,R.anim.fab_open)
         mFabCloseAnim = AnimationUtils.loadAnimation(this,R.anim.fab_close)
+
+
 
         bottomNavigation.setOnShowListener {
             Toast.makeText(
@@ -134,6 +146,18 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
 
         floatingButtonQuedadas.isVisible = false
         floatingButtonprofile.isVisible = false
+    }
+
+    override fun showQuedadas(quedadaLista: HashMap<Any, Any>) {
+        quedadasAdapter.addQuedadas(quedadaLista)
+        quedadasRecyclerView.visibility= View.VISIBLE
+        //emptyView.visibility = View.GONE
+
+    }
+
+    override fun showEmpty() {
+        //emptyView.visibility = View.VISIBLE
+        quedadasRecyclerView.visibility = View.GONE
     }
 }
 

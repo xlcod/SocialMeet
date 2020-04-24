@@ -13,6 +13,6 @@ interface RemoteRepository {
     suspend fun signOut(auth : FirebaseAuth)
     suspend fun getUserData(auth : FirebaseAuth): User?
     suspend fun checkifUserExist(user: FirebaseUser?,name:String?,email: String?,photoUrl: String?,uid: String?): Boolean
-    suspend fun getQuedadas()
+    suspend fun getQuedadas(): HashMap<Any, Any>
 }
 
