@@ -3,7 +3,6 @@ package com.pernas.socialmeet.ui.quedadas
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.pernas.socialmeet.ui.data.remote.RemoteRepository
-import com.pernas.socialmeet.ui.model.Quedada
 import com.pernas.socialmeet.ui.model.User
 import kotlinx.coroutines.*
 
@@ -64,8 +63,6 @@ class QuedadasPresenter(
                 var quedadas: HashMap<Any, Any> = remoteRepository.getQuedadas()
 
 
-
-
                 Log.d("Entra quedadas?", quedadas.toString())
                 withContext(mainDispatcher) {
                     if (quedadas.isEmpty()) {
@@ -90,6 +87,10 @@ class QuedadasPresenter(
             view.hideButtons()
         }
     }
+
+    fun quedadaClicked(datos: List<Any>) {
+        view.openQuedadaDetail(datos)
+    }
 }
 
 interface QuedadasView {
@@ -101,5 +102,6 @@ interface QuedadasView {
     fun hideButtons()
     fun showQuedadas(hash: HashMap<Any, Any>)
     fun showEmpty()
+    fun openQuedadaDetail(quedadaData: List<Any>)
 }
 

@@ -5,12 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.pernas.socialmeet.R
 import com.squareup.picasso.Picasso
 
 
-class QuedadasAdapter() : RecyclerView.Adapter<QuedadasAdapter.ViewHolder>() {
+class QuedadasAdapter(private val listener: ( List<Any?>)  -> Unit) : RecyclerView.Adapter<QuedadasAdapter.ViewHolder>() {
 
 
     private var quedadas = HashMap<Any, Any>()
@@ -21,6 +22,8 @@ class QuedadasAdapter() : RecyclerView.Adapter<QuedadasAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
@@ -29,7 +32,7 @@ class QuedadasAdapter() : RecyclerView.Adapter<QuedadasAdapter.ViewHolder>() {
 
         var keyList = ArrayList(quedadas.keys)
 
-        holder.bind(quedadas.get(keyList[position])!! as Collection<*>)
+        holder.bind(quedadas.get(keyList[position])!! as Collection<*>,listener)
 
     }
 
@@ -42,26 +45,21 @@ class QuedadasAdapter() : RecyclerView.Adapter<QuedadasAdapter.ViewHolder>() {
         val imageviewItem = view.findViewById<ImageView>(R.id.quedadasImageViewItem)
 
 
-        fun bind(pos: Collection<*>) {
+        fun bind(pos: Collection<*>, listener: ( List<Any?>) -> Unit) {
 
-            for(key in pos){
+            for (key in pos) {
                 println("Element at key ${key.toString()}")
                 var data = pos.toList()
-               var nombre=  data[5].toString()
+                var nombre = data[5].toString()
                 var fecha = data[0].toString()
                 var imageUrl = data[6].toString()
                 quedadasTitle.text = nombre
                 quedadasDate.text = fecha
                 Picasso.get().load(imageUrl).into(imageviewItem)
+                this.itemView.setOnClickListener {
+                    listener.invoke(data)
+                }
             }
-
-            /* val key: String = mKeys.get(pos)
-             val Value: String = getItem(pos).toString()*/
-
-            //quedadasTitle.text =
-            //quedadasDate.text = quedadaLista["fecha"].toString()
-
-
         }
 
         companion object {

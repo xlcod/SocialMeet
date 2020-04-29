@@ -7,6 +7,21 @@
     tools:context=".ui.quedadas.QuedadasActivity">
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/quedadasRecyclerView"
+        android:layout_width="match_parent"
+        android:paddingTop="55dp"
+        android:clipToPadding = "false"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/appBarLayout" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -92,11 +107,6 @@
         app:mbn_rippleColor="#2f424242"
         app:mbn_selectedIconColor="#3c415e"
         app:mbn_shadowColor="#1f212121" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/quedadasRecyclerView"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonMain"

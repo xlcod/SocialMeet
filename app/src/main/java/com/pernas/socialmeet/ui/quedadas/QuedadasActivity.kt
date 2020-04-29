@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -20,10 +19,12 @@ import com.pernas.socialmeet.R
 import com.pernas.socialmeet.ui.MapActivity.MapsActivity
 import com.pernas.socialmeet.ui.data.remote.RemoteRepoCalls
 import com.pernas.socialmeet.ui.data.remote.RemoteRepository
-import com.pernas.socialmeet.ui.model.Quedada
 import com.pernas.socialmeet.ui.profile.ProfileActivity
+import com.pernas.socialmeet.ui.quedadasDetail.QuedadasDetail
 import kotlinx.android.synthetic.main.activity_quedadas.*
 import kotlinx.android.synthetic.main.activity_quedadas.progressBar
+import java.io.Serializable
+import java.util.ArrayList
 
 class QuedadasActivity : AppCompatActivity(),QuedadasView {
 
@@ -53,9 +54,13 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
 
         quedadasRecyclerView.layoutManager = LinearLayoutManager(this)
         quedadasRecyclerView.setHasFixedSize(true)
-        quedadasAdapter = QuedadasAdapter()
+        quedadasAdapter = QuedadasAdapter{
+            presenter.quedadaClicked(listOf(it))
+        }
         quedadasRecyclerView.adapter = quedadasAdapter
+        quedadasRecyclerView.layoutManager?.isMeasurementCacheEnabled = false;
 
+        quedadasAdapter.notifyDataSetChanged()
         presenter.getQuedadas()
 
         logOutIcon.setOnClickListener {
@@ -158,6 +163,12 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
     override fun showEmpty() {
         //emptyView.visibility = View.VISIBLE
         quedadasRecyclerView.visibility = View.GONE
+    }
+
+    override fun openQuedadaDetail(data: List<Any>) {
+        val intent = Intent(this, QuedadasDetail::class.java)
+        intent.putExtra("data", data as Serializable)
+        startActivity(intent)
     }
 }
 
