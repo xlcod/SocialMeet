@@ -2,40 +2,41 @@ package com.pernas.socialmeet.ui.quedadas
 
 import android.app.ActivityOptions
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.google.firebase.auth.FirebaseAuth
-import com.pernas.socialmeet.ui.login.LoginActivity
 import com.pernas.socialmeet.R
 import com.pernas.socialmeet.ui.MapActivity.MapsActivity
 import com.pernas.socialmeet.ui.data.remote.RemoteRepoCalls
 import com.pernas.socialmeet.ui.data.remote.RemoteRepository
+import com.pernas.socialmeet.ui.login.LoginActivity
 import com.pernas.socialmeet.ui.profile.ProfileActivity
 import com.pernas.socialmeet.ui.quedadasDetail.QuedadasDetail
 import kotlinx.android.synthetic.main.activity_quedadas.*
-import kotlinx.android.synthetic.main.activity_quedadas.progressBar
 import java.io.Serializable
-import java.util.ArrayList
+
 
 class QuedadasActivity : AppCompatActivity(),QuedadasView {
 
     private lateinit var auth: FirebaseAuth
     lateinit var presenter: QuedadasPresenter
-    private val id_quedadas = 1
-    private val id_maps = 2
     private  var isOpen: Boolean = true
     private lateinit var mFabOpenAnim :Animation
     private lateinit var mFabCloseAnim :Animation
     private lateinit var quedadasAdapter: QuedadasAdapter
+
 
 
     override fun onPause() {
@@ -63,6 +64,7 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
         quedadasAdapter.notifyDataSetChanged()
         presenter.getQuedadas()
 
+
         logOutIcon.setOnClickListener {
             presenter.signOut(auth)
             finish()
@@ -75,6 +77,17 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
 
         mFabOpenAnim = AnimationUtils.loadAnimation(this,R.anim.fab_open)
         mFabCloseAnim = AnimationUtils.loadAnimation(this,R.anim.fab_close)
+
+        itemsswipetorefresh.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        itemsswipetorefresh.setColorSchemeColors(Color.WHITE)
+
+        itemsswipetorefresh.setOnRefreshListener {
+
+            quedadasRecyclerView.adapter = quedadasAdapter
+            quedadasAdapter.notifyDataSetChanged()
+            presenter.getQuedadas()
+            itemsswipetorefresh.isRefreshing = false
+        }
 
 
 
