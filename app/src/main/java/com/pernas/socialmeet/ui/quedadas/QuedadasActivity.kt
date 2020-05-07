@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.google.firebase.auth.FirebaseAuth
 import com.pernas.socialmeet.R
@@ -23,6 +22,7 @@ import com.pernas.socialmeet.ui.data.remote.RemoteRepoCalls
 import com.pernas.socialmeet.ui.data.remote.RemoteRepository
 import com.pernas.socialmeet.ui.login.LoginActivity
 import com.pernas.socialmeet.ui.profile.ProfileActivity
+import com.pernas.socialmeet.ui.quedadasAdd.QuedadasAddActivity
 import com.pernas.socialmeet.ui.quedadasDetail.QuedadasDetail
 import kotlinx.android.synthetic.main.activity_quedadas.*
 import java.io.Serializable
@@ -124,6 +124,9 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
 
         floatingButtonprofile.setOnClickListener {
             startActivity(Intent(this,ProfileActivity::class.java),ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+        }
+        floatingButtonQuedadas.setOnClickListener {
+            startActivity(Intent(this,QuedadasAddActivity::class.java),ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
     }
 

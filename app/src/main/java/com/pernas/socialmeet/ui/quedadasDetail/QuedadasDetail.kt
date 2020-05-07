@@ -14,11 +14,13 @@ import kotlinx.android.synthetic.main.activity_quedadas_detail.*
 
 class QuedadasDetail : AppCompatActivity(),QuedadasDetailView {
 
+    lateinit var presenter: QuedadasDetailPresenter
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView( R.layout.activity_quedadas_detail)
-        lateinit var presenter: QuedadasDetailPresenter
+
         val remoteRepository: RemoteRepository = RemoteRepoCalls()
         presenter = QuedadasDetailPresenter(this, remoteRepository)
 

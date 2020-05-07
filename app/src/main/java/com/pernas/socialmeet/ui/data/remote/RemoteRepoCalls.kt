@@ -185,6 +185,104 @@ class RemoteRepoCalls : RemoteRepository {
         return hashMap
     }
 
+    override suspend fun addQuedada(
+        name: String,
+        place: String,
+        street: String,
+        image: ByteArray?,
+        date: String,
+        time: String
+    ) {
+        val auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+        val id = user?.uid
+
+        saveQuedadasImage(name, place, street, image, id, date, time)
+    }
+
+    override suspend fun saveQuedadasImage(
+        name: String,
+        place: String,
+        street: String,
+        image: ByteArray?,
+        uid: String?,
+        date: String,
+        time: String
+    ) {
+
+        if (image == null) return
+
+        val storage = Firebase.storage
+        val storageRef = storage.reference
+        val quedadasRef = storageRef.child("quedadas/${uid}")
+
+
+        try {
+            val url = quedadasRef
+                .putBytes(image)
+                .await()
+                .storage
+                .downloadUrl
+                .await()
+                .toString()
+
+            saveQuedadasFirestore(name, place, street, url, uid, date, time)
+
+            Log.d("URL", "${url}")
+        } catch (e: Exception) {
+            Log.e("ERROR", "SOMETHING WENT WRONG")
+        }
+    }
+
+    override suspend fun saveQuedadasFirestore(
+        name: String,
+        place: String,
+        street: String,
+        url: String,
+        uid: String?,
+        date: String,
+        time: String
+    ) {
+        db = Firebase.firestore
+
+        val list = arrayListOf<String>()
+
+        val quedada: HashMap<String, Any> = hashMapOf(
+            "calle" to "${street}",
+            "fecha" to "${date}" + "," + "${time}",
+            "id" to "${uid}",
+            "imageQuedada" to "${url}",
+            "lugar" to "${place}",
+            "nombre" to "${name}",
+            "usuarios" to list
+        )
+        val myId = db.collection("quedadas").document().id
+
+        db.collection("quedadas").document(myId)
+            .set(quedada)
+            .await()
+
+    }
+
+    override suspend fun getUsers(): ArrayList<String> {
+        val db = Firebase.firestore
+        var firstLineArray = arrayListOf<String>()
+
+        try {
+            val data = db.collection("users")
+                .get()
+                .await()
+                .documents
+                .forEach { doc ->
+                    var names = doc["username"] as String
+                    firstLineArray.add(names)
+                }
+        } catch (e: Exception) {
+            Log.e("ERROR", e.toString())
+        }
+        return firstLineArray
+    }
+
 
     override suspend fun saveFirestore(
         email: String,
