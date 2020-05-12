@@ -3,7 +3,9 @@ package com.pernas.socialmeet.ui.data.remote
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentReference
 import com.pernas.socialmeet.ui.model.User
+import kotlinx.coroutines.Deferred
 
 interface RemoteRepository {
     suspend fun doLogin(email: String, password: String): FirebaseUser?
@@ -14,9 +16,11 @@ interface RemoteRepository {
     suspend fun getUserData(auth : FirebaseAuth): User?
     suspend fun checkifUserExist(user: FirebaseUser?,name:String?,email: String?,photoUrl: String?,uid: String?): Boolean
     suspend fun getQuedadas(): HashMap<Any, Any>
-    suspend fun addQuedada(name: String,place:String,street: String,image: ByteArray?,date:String,time: String)
-    suspend fun saveQuedadasImage(name: String,place:String,street: String,image: ByteArray?,uid: String?,date: String,time : String)
-    suspend fun saveQuedadasFirestore(name: String,place:String,street: String,url: String,uid: String?,date: String,time : String)
+    suspend fun addQuedada(name: String,place:String,street: String,image: ByteArray?,date:String,time: String,users: ArrayList<String>)
+    suspend fun saveQuedadasImage(name: String,place:String,street: String,image: ByteArray?,uid: String?,date: String,time : String,users: ArrayList<String>)
+    suspend fun saveQuedadasFirestore(name: String,place:String,street: String,url: String,uid: String?,date: String,time : String,selectedUsers : ArrayList<String>)
     suspend fun getUsers() : ArrayList<String>
+    suspend fun updateQuedadas(ref: String)
+
 }
 

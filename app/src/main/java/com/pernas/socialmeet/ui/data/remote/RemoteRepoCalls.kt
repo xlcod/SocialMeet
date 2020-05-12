@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -13,7 +14,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.pernas.socialmeet.ui.model.User
 import kotlinx.coroutines.tasks.await
-import java.util.ArrayList
 
 
 class RemoteRepoCalls : RemoteRepository {
@@ -159,20 +159,24 @@ class RemoteRepoCalls : RemoteRepository {
             val dataa = docRef
                 .get()
                 .await()
-                .get("quedadas") as ArrayList<*>
+                .get("quedadas") as List<*>
 
             val index = dataa.count()
+
+            Log.e("TEST",dataa?.toString())
 
 
             if (index != 0) {
                 for (i in 0 until index) {
                     val quedadasReference = dataa[i] as DocumentReference
-                    val test = quedadasReference.get().await().data
+                    val test = quedadasReference.get().await().data?.toMutableMap()
+                    Log.e("aqver",test.toString())
                     if (test != null) {
-                        for (element in test) {
-                            val data = test.values
-                            hashMap.put(test["id"]!!.toString(), data)
-                        }
+                       test.forEach {
+                           val id = test["id"]
+                           val data = test.values
+                           hashMap.put(id.toString(), data)
+                       }
                     }
                 }
                 return hashMap
@@ -191,13 +195,14 @@ class RemoteRepoCalls : RemoteRepository {
         street: String,
         image: ByteArray?,
         date: String,
-        time: String
+        time: String,
+        users: ArrayList<String>
     ) {
         val auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
         val id = user?.uid
 
-        saveQuedadasImage(name, place, street, image, id, date, time)
+        saveQuedadasImage(name, place, street, image, id, date, time, users)
     }
 
     override suspend fun saveQuedadasImage(
@@ -207,7 +212,8 @@ class RemoteRepoCalls : RemoteRepository {
         image: ByteArray?,
         uid: String?,
         date: String,
-        time: String
+        time: String,
+        users: ArrayList<String>
     ) {
 
         if (image == null) return
@@ -226,7 +232,7 @@ class RemoteRepoCalls : RemoteRepository {
                 .await()
                 .toString()
 
-            saveQuedadasFirestore(name, place, street, url, uid, date, time)
+            saveQuedadasFirestore(name, place, street, url, uid, date, time, users)
 
             Log.d("URL", "${url}")
         } catch (e: Exception) {
@@ -241,26 +247,39 @@ class RemoteRepoCalls : RemoteRepository {
         url: String,
         uid: String?,
         date: String,
-        time: String
+        time: String,
+        users: ArrayList<String>
     ) {
         db = Firebase.firestore
-
+        val auth = FirebaseAuth.getInstance()
         val list = arrayListOf<String>()
+        val myId = db.collection("quedadas").document().id
 
         val quedada: HashMap<String, Any> = hashMapOf(
             "calle" to "${street}",
             "fecha" to "${date}" + "," + "${time}",
-            "id" to "${uid}",
+            "id" to "${myId}",
             "imageQuedada" to "${url}",
             "lugar" to "${place}",
             "nombre" to "${name}",
-            "usuarios" to list
+            "usuarios" to users
         )
-        val myId = db.collection("quedadas").document().id
+
 
         db.collection("quedadas").document(myId)
             .set(quedada)
             .await()
+
+
+        var ref = db.document("quedadas/${myId}")
+
+        try {
+            Log.d("REFERENCIA?", ref.toString())
+            updateQuedadas(myId)
+        } catch (e: java.lang.Exception) {
+            Log.e("ERROR", e.toString())
+        }
+
 
     }
 
@@ -281,6 +300,22 @@ class RemoteRepoCalls : RemoteRepository {
             Log.e("ERROR", e.toString())
         }
         return firstLineArray
+    }
+
+    override suspend fun updateQuedadas(ref: String) {
+        val auth = FirebaseAuth.getInstance()
+        val uid: String? = auth.currentUser?.uid
+
+        val docRef = db.collection("quedadas").document(ref)
+
+        try {
+            Log.d("REFERENCIUPDATEQUEDADAS", ref)
+
+            db.document("users/${uid.toString()}")
+                .update("quedadas", FieldValue.arrayUnion(docRef))
+        } catch (e: java.lang.Exception) {
+            Log.e("ERROR update", e.toString())
+        }
     }
 
 

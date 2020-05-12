@@ -1,8 +1,10 @@
 package com.pernas.socialmeet.ui.quedadasAdd
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pernas.socialmeet.R
@@ -12,10 +14,15 @@ class QuedadasAddAdapter(private val listener: (List<Any?>) -> Unit) : RecyclerV
 
 
     private var usuarios = ArrayList<String>()
+    var test = arrayListOf<String>()
 
     fun showUsers(users: ArrayList<String>) {
        this.usuarios = users
         notifyDataSetChanged()
+    }
+    fun checkUsers() : ArrayList<String> {
+        Log.d("check",test.size.toString())
+        return test
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,18 +33,26 @@ class QuedadasAddAdapter(private val listener: (List<Any?>) -> Unit) : RecyclerV
     override fun getItemCount(): Int = usuarios.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(usuarios[position],listener)
+        holder.bind(usuarios[position],test)
+        checkUsers()
     }
 
     class ViewHolder private constructor(view: View) : RecyclerView.ViewHolder(view) {
         val quedadasTitle = view.findViewById<TextView>(R.id.userAddtextView)
+        var cb = view.findViewById(R.id.cb) as CheckBox
 
 
 
-        fun bind(username: String, listener: ( List<Any?>) -> Unit) {
+        fun bind(username: String, test: ArrayList<String>) {
 
-        quedadasTitle.text = username
-
+            quedadasTitle.text = username
+            cb.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    test.add(username)
+                }else {
+                    Log.e("NOT CLICKED " ," NO check LIcked")
+                }
+            }
         }
 
         companion object {
@@ -47,6 +62,4 @@ class QuedadasAddAdapter(private val listener: (List<Any?>) -> Unit) : RecyclerV
             }
         }
     }
-
-
 }

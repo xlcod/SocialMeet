@@ -130,6 +130,7 @@ class QuedadasAddActivity : AppCompatActivity(), QuedadasAddView {
         }
         addQuedadaButton.setOnClickListener {
             var condition = checkFields()
+            var users=  quedadasAddAdapter.checkUsers()
             if (condition == false) {
                 return@setOnClickListener
             } else {
@@ -139,7 +140,8 @@ class QuedadasAddActivity : AppCompatActivity(), QuedadasAddView {
                     calleTextAdd.text.toString(),
                     filePath,
                     textview_date!!.text.toString(),
-                    text_view_time_1.text.toString()
+                    text_view_time_1.text.toString(),
+                    users
                 )
             }
         }
@@ -240,7 +242,6 @@ class QuedadasAddActivity : AppCompatActivity(), QuedadasAddView {
         var condition = false
 
         if (nameTextAdd.text?.isEmpty()!!) {
-            Log.d("AVER QUEDADAS AC", nameTextAdd.toString())
             nameInputLayout.error = "Please enter a name"
             condition = false
         } else if (lugarTextAdd.text?.isEmpty()!!) {

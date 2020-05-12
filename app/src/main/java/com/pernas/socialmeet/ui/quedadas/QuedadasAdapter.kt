@@ -1,5 +1,6 @@
 package com.pernas.socialmeet.ui.quedadas
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +19,11 @@ class QuedadasAdapter(private val listener: ( List<Any?>)  -> Unit) : RecyclerVi
 
 
     fun addQuedadas(quedadaLista: HashMap<Any, Any>) {
-        this.quedadas = quedadaLista
         notifyDataSetChanged()
+        quedadas.clear()
+        quedadas.putAll(quedadaLista)
+        notifyDataSetChanged()
+        Log.e("tamaño quedada adapter",quedadas.size.toString())
     }
 
 
@@ -31,8 +35,7 @@ class QuedadasAdapter(private val listener: ( List<Any?>)  -> Unit) : RecyclerVi
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         var keyList = ArrayList(quedadas.keys)
-
-        holder.bind(quedadas.get(keyList[position])!! as Collection<*>,listener)
+        holder.bind(quedadas[keyList[position]]!! as Collection<*>,listener)
 
     }
 
@@ -46,6 +49,7 @@ class QuedadasAdapter(private val listener: ( List<Any?>)  -> Unit) : RecyclerVi
 
 
         fun bind(pos: Collection<*>, listener: ( List<Any?>) -> Unit) {
+
 
             for (key in pos) {
                 println("Element at key ${key.toString()}")

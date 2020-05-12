@@ -35,6 +35,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:focusable="false"
+            android:clickable="true"
             app:useMaterialThemeColors = "true" />
 
 

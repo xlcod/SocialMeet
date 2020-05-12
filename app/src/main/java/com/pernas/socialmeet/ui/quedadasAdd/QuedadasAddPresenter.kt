@@ -31,6 +31,23 @@ class QuedadasAddPresenter(
 
     }
 
+    fun addUsers(list: ArrayList<String>) {
+        CoroutineScope(ioDispatcher).launch {
+
+            try {
+                 remoteRepository.getUsers()
+                withContext(mainDispatcher) {
+
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+
+                }
+            }
+        }
+
+    }
+
 
     fun addQuedada(
         name: String,
@@ -38,15 +55,14 @@ class QuedadasAddPresenter(
         street: String,
         filePath: ByteArray?,
         date: String,
-        time: String
+        time: String,
+        selectedUsers : ArrayList<String>
     ) {
         view.onProcessStarts()
         CoroutineScope(ioDispatcher).launch {
 
             try {
-                Log.e("entra presenter", "${place}")
-                Log.d("parece que si", "${name}")
-                remoteRepository.addQuedada(name, place, street, filePath, date, time)
+                remoteRepository.addQuedada(name, place, street, filePath, date, time,selectedUsers)
 
                 withContext(mainDispatcher) {
 
