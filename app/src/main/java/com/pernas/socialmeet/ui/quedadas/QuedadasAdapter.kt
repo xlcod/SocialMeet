@@ -49,7 +49,7 @@ class QuedadasAdapter(private val listener: ( List<Any?>)  -> Unit) : RecyclerVi
 
 
         fun bind(pos: Collection<*>, listener: ( List<Any?>) -> Unit) {
-
+            Log.e("FOTOS DE QUEDADA",pos.toList()[6].toString())
 
             for (key in pos) {
                 println("Element at key ${key.toString()}")

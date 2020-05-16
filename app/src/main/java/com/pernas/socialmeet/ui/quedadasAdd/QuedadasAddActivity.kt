@@ -130,7 +130,8 @@ class QuedadasAddActivity : AppCompatActivity(), QuedadasAddView {
         }
         addQuedadaButton.setOnClickListener {
             var condition = checkFields()
-            var users=  quedadasAddAdapter.checkUsers()
+            var users=  quedadasAddAdapter.addSelectedUsers()
+            var usersid = quedadasAddAdapter.selectedUsersId
             if (condition == false) {
                 return@setOnClickListener
             } else {
@@ -141,7 +142,8 @@ class QuedadasAddActivity : AppCompatActivity(), QuedadasAddView {
                     filePath,
                     textview_date!!.text.toString(),
                     text_view_time_1.text.toString(),
-                    users
+                    users,
+                    usersid
                 )
             }
         }
@@ -233,7 +235,7 @@ class QuedadasAddActivity : AppCompatActivity(), QuedadasAddView {
         ).show()
     }
 
-    override fun addNames(list: ArrayList<String>) {
+    override fun addNames(list: HashMap<Any,Any>) {
         quedadasAddAdapter.showUsers(list)
         usernamesAddRecyclerView.visibility= View.VISIBLE
     }

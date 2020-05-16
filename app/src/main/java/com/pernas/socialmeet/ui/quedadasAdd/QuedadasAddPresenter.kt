@@ -56,13 +56,14 @@ class QuedadasAddPresenter(
         filePath: ByteArray?,
         date: String,
         time: String,
-        selectedUsers : ArrayList<String>
+        selectedUsers : ArrayList<String>,
+        usersId  : ArrayList<String>
     ) {
         view.onProcessStarts()
         CoroutineScope(ioDispatcher).launch {
 
             try {
-                remoteRepository.addQuedada(name, place, street, filePath, date, time,selectedUsers)
+                remoteRepository.addQuedada(name, place, street, filePath, date, time,selectedUsers,usersId)
 
                 withContext(mainDispatcher) {
 
@@ -87,5 +88,5 @@ interface QuedadasAddView {
     fun onProcessEnds()
     fun showSignUpSuccessful()
     fun showSignUpError()
-    fun addNames(list: ArrayList<String>)
+    fun addNames(list: HashMap<Any,Any>)
 }
