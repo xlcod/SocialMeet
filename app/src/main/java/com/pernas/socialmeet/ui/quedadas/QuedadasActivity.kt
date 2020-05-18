@@ -72,7 +72,7 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
         }
         val bottomNavigation = findViewById<MeowBottomNavigation>(R.id.bottomNavigation)
         bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.quedadas_icon))
-        bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.profile_icon))
+        bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.map_icon))
 
         bottomNavigation.show(1)
 

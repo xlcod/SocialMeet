@@ -1,4 +1,17 @@
 <resources>
-    <string name="app_name">SocialMeet</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="app_name" translatable="false">SocialMeet</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="minimun">Minimum of 6 characters</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="signup">SIGN UP</string>
+    <string name="user_data">User Data</string>
+    <string name="quedada_name">Name</string>
+    <string name="place">Place</string>
+    <string name="street">street</string>
+    <string name="change_date">CHANGE DATE</string>
+    <string name="change_time">CHANGE TIME</string>
+    <string name="add_quedada">Add Appointment</string>
 </resources>

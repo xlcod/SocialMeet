@@ -9,32 +9,30 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernameRegister"
-        android:layout_width="395dp"
-        android:layout_height="68dp"
+        android:layout_width="335dp"
+        android:layout_height="70dp"
         android:layout_margin="4dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:hint="Username"
+        android:hint="@string/username"
         app:layout_constraintBottom_toTopOf="@+id/signUpButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.365"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.519"
         app:startIconDrawable="@android:drawable/presence_online">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/usernameTextRegister"
             android:layout_width="335dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email"
-        android:layout_width="395dp"
-        android:layout_height="63dp"
+        android:layout_width="335dp"
+        android:layout_height="70dp"
         android:layout_margin="4dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
@@ -42,7 +40,6 @@
         android:hint="Email"
         app:layout_constraintBottom_toTopOf="@+id/signUpButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameRegister"
         app:layout_constraintVertical_bias="0.100000024"
@@ -52,40 +49,36 @@
             android:id="@+id/emailTextRegister"
             android:layout_width="335dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password"
-        android:layout_width="397dp"
+        android:layout_width="335dp"
         android:layout_height="79dp"
         android:layout_margin="4dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:hint="Password"
+        android:layout_marginBottom="36dp"
+        android:hint="@string/password"
         app:counterEnabled="true"
         app:counterMaxLength="15"
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
-        app:helperText="Minimum 6 characters"
+        app:helperText="@string/minimun"
         app:helperTextEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/signUpButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.673"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email"
-        app:layout_constraintVertical_bias="0.17000002"
+        app:layout_constraintVertical_bias="0.26999998"
         app:startIconDrawable="@android:drawable/ic_lock_lock">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordTextRegister"
             android:layout_width="335dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +90,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/rounded_button"
-        android:text="Sign Up"
+        android:text="@string/signup"
         android:textColor="@android:color/background_light"
         app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -111,6 +104,7 @@
         android:layout_width="203dp"
         android:layout_height="193dp"
         android:layout_marginTop="50dp"
+        android:src="@drawable/placeholder_image"
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"

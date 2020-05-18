@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="password">Contraseña</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="minimun">Minimo 6 carácteres</string>
+    <string name="register">Registro</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="signup">Registrarse</string>
+    <string name="user_data">Datos de Usuario</string>
+    <string name="quedada_name">Nombre Quedada</string>
+    <string name="place">Lugar</string>
+    <string name="street">Calle</string>
+    <string name="change_date">Cambiar Fecha</string>
+    <string name="change_time">Cambiar Hora</string>
+    <string name="add_quedada">Añadir Quedada</string>
+</resources>

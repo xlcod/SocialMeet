@@ -51,7 +51,7 @@
                     android:id="@+id/lugarTextAdd"
                     android:layout_width="335dp"
                     android:layout_height="wrap_content"
-                    android:hint="Lugar"
+                    android:hint="@string/place"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,7 +72,7 @@
                     android:layout_width="335dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="60dp"
-                    android:hint="Calle"
+                    android:hint="@string/street"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,7 +93,7 @@
                     android:layout_width="335dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="60dp"
-                    android:hint="Nombre"
+                    android:hint="@string/quedada_name"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -127,7 +127,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="36dp"
-                android:text="Change Date"
+                android:text="@string/change_date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/calleInputLayout" />
 
@@ -150,7 +150,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="34dp"
                 android:layout_marginEnd="36dp"
-                android:text="Change time"
+                android:text="@string/change_time"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button_date_1" />
 
@@ -175,7 +175,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_margin="8dp"
-            android:text="Añadir Quedada"
+            android:text="@string/add_quedada"
             app:icon="@drawable/add_icon"
             app:layout_anchorGravity="bottom|right|end" />
     </LinearLayout>
