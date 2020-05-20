@@ -21,6 +21,7 @@ interface RemoteRepository {
     suspend fun saveQuedadasFirestore(name: String,place:String,street: String,url: String,uid: String?,date: String,time : String,selectedUsers : ArrayList<String>,usersId : ArrayList<String> )
     suspend fun getUsers() : HashMap<Any,Any>
     suspend fun updateQuedadas(ref: String,usersId: ArrayList<String>)
+    suspend fun deleteQuedadas(id: String)
 
 }
 

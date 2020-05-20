@@ -19,15 +19,15 @@ class QuedadasDetailPresenter(
 
             try {
                 val nombre = list[5].toString()
-                val lugar= list[1].toString()
+                val lugar = list[1].toString()
                 val fecha = list[0].toString()
                 val calle = list[2].toString()
-                val usuariosArray= list[4] as List<Any>
+                val usuariosArray = list[4] as List<Any>
                 val usuarios = usuariosArray.joinToString(",")
-                val quedadaPhoto =  list[6].toString()
+                val quedadaPhoto = list[6].toString()
 
                 withContext(mainDispatcher) {
-                    view.showData(nombre,lugar,fecha,calle,usuarios,quedadaPhoto)
+                    view.showData(nombre, lugar, fecha, calle, usuarios, quedadaPhoto)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -36,8 +36,35 @@ class QuedadasDetailPresenter(
             }
         }
     }
+
+    fun deleteQuedada(list: List<Any>) {
+        CoroutineScope(ioDispatcher).launch {
+            try {
+                val documentId = list[3].toString()
+                remoteRepository.deleteQuedadas(documentId)
+                withContext(mainDispatcher) {
+                    view.deletedSuccess()
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Log.e("Wrong", "sometging went wrong  quedadas detail delete")
+                }
+            }
+        }
+    }
+
 }
 
+
 interface QuedadasDetailView {
-    fun showData(nombre: String,lugar: String,fecha: String,calle: String,usuarios: String,quedadaPhoto: String)
+    fun showData(
+        nombre: String,
+        lugar: String,
+        fecha: String,
+        calle: String,
+        usuarios: String,
+        quedadaPhoto: String
+    )
+
+    fun deletedSuccess()
 }

@@ -170,4 +170,14 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/deleteQuedadaButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:text="@string/delete_quedada"
+        app:icon="@drawable/delete_icon"
+        app:layout_anchorGravity="bottom|right|end" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

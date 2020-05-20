@@ -14,4 +14,11 @@
     <string name="change_date">CHANGE DATE</string>
     <string name="change_time">CHANGE TIME</string>
     <string name="add_quedada">Add Appointment</string>
+    <string name="delete_quedada">Delete Appointment</string>
+    <string name="delete_quedada_confirmation">Delete Appointment Confirmation</string>
+    <string name="delete_quedada_question">¿Are you sure you want to delete the appointment?</string>
+    <string name="delete_quedada_yes">Yes</string>
+    <string name="delete_quedada_neutral">Cancel</string>
+    <string name="delete_quedada_no">No</string>
+
 </resources>

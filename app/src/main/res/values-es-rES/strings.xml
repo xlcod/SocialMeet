@@ -13,4 +13,10 @@
     <string name="change_date">Cambiar Fecha</string>
     <string name="change_time">Cambiar Hora</string>
     <string name="add_quedada">Añadir Quedada</string>
+    <string name="delete_quedada">Borrar Quedada</string>
+    <string name="delete_quedada_confirmation">Confirmación  Quedada</string>
+    <string name="delete_quedada_question">¿Estás seguro de que quieres borrar la quedada?</string>
+    <string name="delete_quedada_yes">Sí</string>
+    <string name="delete_quedada_neutral">No</string>
+    <string name="delete_quedada_no">Cancelar</string>
 </resources>
