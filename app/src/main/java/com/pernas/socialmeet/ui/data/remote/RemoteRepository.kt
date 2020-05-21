@@ -22,6 +22,7 @@ interface RemoteRepository {
     suspend fun getUsers() : HashMap<Any,Any>
     suspend fun updateQuedadas(ref: String,usersId: ArrayList<String>)
     suspend fun deleteQuedadas(id: String)
+    suspend fun updateDetailData(nombre: String, fecha: String, lugar: String, calle: String,quedadaId: String): Boolean
 
 }
 

@@ -13,6 +13,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.pernas.socialmeet.ui.model.User
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.tasks.await
 
 
@@ -345,9 +346,41 @@ class RemoteRepoCalls : RemoteRepository {
                 .await()
 
 
-
         } catch (e: Exception) {
             Log.e("ERROR BORRAR QUEDADA", e.toString())
+        }
+    }
+
+    override suspend fun updateDetailData(
+        nombre: String,
+        fecha: String,
+        lugar: String,
+        calle: String,
+        quedadaId: String
+    ): Boolean {
+        Log.e("TESTDETAIL", nombre)
+        Log.e("TESTDETAIL2", fecha)
+        Log.e("TESTDETAIL3", lugar)
+        Log.e("TESTDETAIL4", calle)
+        var condition = false
+        try {
+            val db = Firebase.firestore
+            var test = db.document("quedadas/${quedadaId}")
+                .update(
+                    mapOf(
+                        "calle" to calle,
+                        "fecha" to fecha,
+                        "id" to quedadaId,
+                        "lugar" to lugar,
+                        "nombre" to nombre
+                    )
+                ).await()
+            condition = true
+            return condition
+        } catch (e: Exception) {
+            Log.e("FAIL UPDATEDETAIL", e.toString())
+            condition = false
+            return condition
         }
     }
 
