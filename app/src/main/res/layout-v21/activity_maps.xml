@@ -17,12 +17,12 @@
 
         <RelativeLayout
             android:id="@+id/relLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_width="317dp"
+            android:layout_height="49dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:background="#fff"
+            android:background="@drawable/white_border"
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -44,6 +44,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/lupa"
                 android:hint="Enter Address,City or Zip Code"
+                android:imeOptions="actionSearch"
                 android:textColor="#000"
                 android:textSize="15sp" />
         </RelativeLayout>

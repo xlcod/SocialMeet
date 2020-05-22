@@ -1,12 +1,20 @@
 package com.pernas.socialmeet.ui.MapActivity
 
+import android.Manifest
 import android.app.ActivityOptions
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -17,10 +25,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.pernas.socialmeet.R
 import com.pernas.socialmeet.ui.quedadas.QuedadasActivity
+import kotlinx.android.synthetic.main.activity_maps.*
+import java.lang.Exception
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+    private val LOCATION_REQUEST_CODE = 101
 
 
     override fun onPause() {
@@ -70,6 +81,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
+    init()
+
 
     }
 
@@ -85,9 +98,90 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
+        /* Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        */
+
+
+        if (mMap != null) {
+            val permission = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+
+            if (permission == PackageManager.PERMISSION_GRANTED) {
+                mMap?.isMyLocationEnabled = true
+            } else {
+                requestPermission(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    LOCATION_REQUEST_CODE)
+            }
+        }
+        mMap?.mapType = GoogleMap.MAP_TYPE_HYBRID
+        val mapSettings = mMap?.uiSettings
+        mapSettings?.isZoomControlsEnabled = true
+    }
+    private fun init() {
+
+        input_search.setOnEditorActionListener { v, actionId, event ->
+
+
+            if(actionId== EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE
+                ||event.action == KeyEvent.ACTION_DOWN ||event.action == KeyEvent.KEYCODE_ENTER){
+                geoLocate()
+                true
+            } else {
+                false
+            }
+        }
+
+    }
+
+    private fun geoLocate() {
+        val searchInfo = input_search.text.toString()
+
+        val geocoder: Geocoder = Geocoder(this)
+
+        var directions = listOf<Any>()
+
+        try {
+            directions = geocoder.getFromLocationName(searchInfo,1)
+
+        }catch (e : Exception) {
+            Log.e("Error locate ",e.toString())
+        }
+        if (directions.size > 0 ) {
+           var place =  directions[0].toString()
+            Log.e("geolocatesearched ",place.toString())
+
+        }
+    }
+
+    private fun requestPermission(permissionType: String,
+                                   requestCode: Int) {
+
+        ActivityCompat.requestPermissions(this,
+            arrayOf(permissionType), requestCode
+        )
+    }
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                             permissions: Array<String>, grantResults: IntArray) {
+
+        when (requestCode) {
+            LOCATION_REQUEST_CODE -> {
+
+                if (grantResults.isEmpty() || grantResults[0] !=
+                    PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this,
+                        "Unable to show location - permission required",
+                        Toast.LENGTH_LONG).show()
+                } else {
+
+                    val mapFragment = supportFragmentManager
+                        .findFragmentById(R.id.map) as SupportMapFragment
+                    mapFragment.getMapAsync(this)
+                }
+            }
+        }
     }
 }
