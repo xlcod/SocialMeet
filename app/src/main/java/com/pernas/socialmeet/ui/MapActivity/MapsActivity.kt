@@ -4,29 +4,31 @@ import android.Manifest
 import android.app.ActivityOptions
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.location.Address
 import android.location.Geocoder
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.pernas.socialmeet.R
 import com.pernas.socialmeet.ui.quedadas.QuedadasActivity
 import kotlinx.android.synthetic.main.activity_maps.*
-import java.lang.Exception
+import java.net.URL
+import java.util.concurrent.Executors
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -81,60 +83,47 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
-    init()
-
-
+        init()
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        /* Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-        */
-
-
         if (mMap != null) {
-            val permission = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
+            val permission = ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
 
             if (permission == PackageManager.PERMISSION_GRANTED) {
                 mMap?.isMyLocationEnabled = true
             } else {
                 requestPermission(
                     Manifest.permission.ACCESS_FINE_LOCATION,
-                    LOCATION_REQUEST_CODE)
+                    LOCATION_REQUEST_CODE
+                )
             }
         }
         mMap?.mapType = GoogleMap.MAP_TYPE_HYBRID
         val mapSettings = mMap?.uiSettings
         mapSettings?.isZoomControlsEnabled = true
-    }
-    private fun init() {
 
+        mMap.setPadding(0, 0, 0, 150)
+    }
+
+    private fun init() {
         input_search.setOnEditorActionListener { v, actionId, event ->
 
 
-            if(actionId== EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE
-                ||event.action == KeyEvent.ACTION_DOWN ||event.action == KeyEvent.KEYCODE_ENTER){
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE
+                || event.action == KeyEvent.ACTION_DOWN || event.action == KeyEvent.KEYCODE_ENTER
+            ) {
                 geoLocate()
                 true
             } else {
                 false
             }
         }
-
     }
 
     private fun geoLocate() {
@@ -142,39 +131,61 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val geocoder: Geocoder = Geocoder(this)
 
-        var directions = listOf<Any>()
+        var directions = listOf<Address>()
 
         try {
-            directions = geocoder.getFromLocationName(searchInfo,1)
+            directions = geocoder.getFromLocationName(searchInfo, 1)
 
-        }catch (e : Exception) {
-            Log.e("Error locate ",e.toString())
+        } catch (e: Exception) {
+            Log.e("Error locate ", e.toString())
         }
-        if (directions.size > 0 ) {
-           var place =  directions[0].toString()
-            Log.e("geolocatesearched ",place.toString())
+        if (directions.size > 0) {
+            var place: Address = directions[0]
+            Log.e("geolocatesearched ", place.toString())
+
+            moveCamera(LatLng(place.latitude, place.longitude), 14.0f, place.getAddressLine(0))
 
         }
     }
 
-    private fun requestPermission(permissionType: String,
-                                   requestCode: Int) {
+    private fun moveCamera(long: LatLng, zoom: Float, title: String) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(long, zoom))
 
-        ActivityCompat.requestPermissions(this,
+
+        val marker: Marker = mMap.addMarker(
+            MarkerOptions()
+                .position(long)
+                .title(title)
+        )
+    }
+
+    private fun requestPermission(
+        permissionType: String,
+        requestCode: Int
+    ) {
+
+        ActivityCompat.requestPermissions(
+            this,
             arrayOf(permissionType), requestCode
         )
     }
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                             permissions: Array<String>, grantResults: IntArray) {
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
 
         when (requestCode) {
             LOCATION_REQUEST_CODE -> {
 
                 if (grantResults.isEmpty() || grantResults[0] !=
-                    PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this,
+                    PackageManager.PERMISSION_GRANTED
+                ) {
+                    Toast.makeText(
+                        this,
                         "Unable to show location - permission required",
-                        Toast.LENGTH_LONG).show()
+                        Toast.LENGTH_LONG
+                    ).show()
                 } else {
 
                     val mapFragment = supportFragmentManager
