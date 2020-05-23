@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.google.firebase.auth.FirebaseAuth
@@ -61,6 +62,8 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
         }
         quedadasRecyclerView.adapter = quedadasAdapter
         quedadasRecyclerView.layoutManager?.isMeasurementCacheEnabled = false;
+        val numberOfColumns = 2
+        quedadasRecyclerView.layoutManager = (GridLayoutManager(this,numberOfColumns))
 
         quedadasAdapter.notifyDataSetChanged()
         presenter.getQuedadas()
