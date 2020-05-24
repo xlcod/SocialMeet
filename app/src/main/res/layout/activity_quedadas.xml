@@ -53,7 +53,8 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
+            android:background="@drawable/quedadas_background"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="bottom"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -112,20 +113,22 @@
         android:layout_width="429dp"
         android:layout_height="71dp"
         android:layout_marginTop="32dp"
-        android:background="@android:color/black"
+        android:background="@drawable/quedadas_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar"
         app:layout_constraintVertical_bias="1.0"
-        app:mbn_backgroundBottomColor="#ffffff"
+        app:mbn_backgroundBottomColor="#7B1FA2"
         app:mbn_circleColor="#ffffff"
         app:mbn_countBackgroundColor="#ff6f00"
         app:mbn_countTextColor="#ffffff"
         app:mbn_defaultIconColor="#90a4ae"
         app:mbn_rippleColor="#2f424242"
-        app:mbn_selectedIconColor="#3c415e"
-        app:mbn_shadowColor="#1f212121" >
+        app:mbn_selectedIconColor="#212121"
+        app:mbn_shadowColor="#1f212121"
+
+        >
 
     </com.etebarian.meowbottomnavigation.MeowBottomNavigation>
 
@@ -140,7 +143,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="462dp"
         android:src="@drawable/arrow_upward"
-        app:backgroundTint="#CF19B1"
+        app:backgroundTint="#7C4DFF"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -157,7 +160,7 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:visibility="invisible"
-        app:backgroundTint="#FFCF19B1"
+        app:backgroundTint="#7C4DFF"
         app:layout_constraintBottom_toTopOf="@+id/floatingButtonMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -173,7 +176,7 @@
         android:layout_marginBottom="260dp"
         android:clickable="true"
         android:visibility="invisible"
-        app:backgroundTint="#FFCF19B1"
+        app:backgroundTint="#7C4DFF"
         app:layout_constraintBottom_toBottomOf="@+id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
