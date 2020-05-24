@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.register.RegistrerActivity">
+    tools:context=".ui.register.RegistrerActivity"
+    android:background="@drawable/grad">
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -12,6 +13,8 @@
         android:layout_width="335dp"
         android:layout_height="70dp"
         android:layout_margin="4dp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusTopStart="25dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/username"
@@ -25,6 +28,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/usernameTextRegister"
             android:layout_width="335dp"
+            android:backgroundTint="#ffff"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -37,6 +41,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusTopStart="25dp"
         android:hint="Email"
         app:layout_constraintBottom_toTopOf="@+id/signUpButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +54,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailTextRegister"
             android:layout_width="335dp"
+            android:backgroundTint="#ffff"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -60,6 +67,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusTopStart="25dp"
         android:layout_marginBottom="36dp"
         android:hint="@string/password"
         app:counterEnabled="true"
@@ -78,16 +87,19 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordTextRegister"
             android:layout_width="335dp"
+            android:backgroundTint="#ffff"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        style="@style/Widget.MaterialComponents.Button"
         android:id="@+id/signUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        app:cornerRadius="15dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/rounded_button"
         android:text="@string/signup"
