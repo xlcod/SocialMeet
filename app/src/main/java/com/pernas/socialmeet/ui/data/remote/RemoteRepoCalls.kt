@@ -2,6 +2,7 @@ package com.pernas.socialmeet.ui.data.remote
 
 
 import android.util.Log
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
@@ -381,6 +382,57 @@ class RemoteRepoCalls : RemoteRepository {
             Log.e("FAIL UPDATEDETAIL", e.toString())
             condition = false
             return condition
+        }
+    }
+
+    //updates user password
+    override suspend fun changePassword(oldpass: String, newPass: String) {
+        val auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+        try {
+            val userEmail = user?.email
+
+            val credential = userEmail?.let {
+                EmailAuthProvider
+                    .getCredential(it, oldpass)
+            }
+
+            if (credential != null) {
+                user.reauthenticate(credential)
+                    .await()
+                user.updatePassword(newPass).await()
+            }
+
+
+        } catch (e: java.lang.Exception) {
+            Log.e("Error updating password", e.toString())
+        }
+    }
+
+    override suspend fun updateEmail(newEmail: String,pass: String) {
+        val auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+        val db = Firebase.firestore
+        val userUid = auth.currentUser?.uid
+        try {
+            val userEmail = user?.email
+
+            val credential = userEmail?.let {
+                EmailAuthProvider
+                    .getCredential(it, pass)
+            }
+
+            if (credential != null) {
+                user.reauthenticate(credential)
+                    .await()
+                user.updateEmail(newEmail).await()
+            }
+           db.document("users/${userUid}").update("email",newEmail).await()
+
+
+
+        } catch (e: java.lang.Exception) {
+            Log.e("Error updating Email", e.toString())
         }
     }
 

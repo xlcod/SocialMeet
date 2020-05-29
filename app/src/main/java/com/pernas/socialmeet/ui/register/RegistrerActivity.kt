@@ -38,9 +38,9 @@ class RegistrerActivity : AppCompatActivity(), RegisterView {
         signUpButton.setOnClickListener {
             checkFields()
             presenter.signUpClicked(
-                emailTextRegister.text.toString(),
+                newpass.text.toString(),
                 passwordTextRegister.text.toString(),
-                usernameTextRegister.text.toString(),
+                oldpass.text.toString(),
                 filePath
             )
         }
@@ -113,12 +113,12 @@ class RegistrerActivity : AppCompatActivity(), RegisterView {
     }
 
     private fun checkFields() {
-        if (usernameTextRegister.text?.isEmpty()!!) {
-            usernameTextRegister.error = "Please enter Username"
+        if (oldpass.text?.isEmpty()!!) {
+            oldpass.error = "Please enter Username"
             return
         }
-        if (emailTextRegister.text?.isEmpty()!!) {
-            emailTextRegister.error = "Please enter Email"
+        if (newpass.text?.isEmpty()!!) {
+            newpass.error = "Please enter Email"
             return
         }
         if (passwordTextRegister.text?.isEmpty()!!) {

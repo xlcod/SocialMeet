@@ -7,37 +7,40 @@ import com.pernas.socialmeet.ui.model.User
 import kotlinx.coroutines.*
 import java.lang.Exception
 
-class ProfilePresenter (
+class ProfilePresenter(
     private val view: ProfileView,
     private val remoteRepository: RemoteRepository,
     private val mainDispatcher: CoroutineDispatcher = Dispatchers.Main,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO)
-    {
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+) {
 
-        fun getUserData(auth: FirebaseAuth) {
-            CoroutineScope(ioDispatcher).launch {
+    fun getUserData(auth: FirebaseAuth) {
+        CoroutineScope(ioDispatcher).launch {
 
-                try {
-                    var userData: User? = remoteRepository.getUserData(auth)
+            try {
+                var userData: User? = remoteRepository.getUserData(auth)
 
-                    withContext(mainDispatcher) {
-                        view.showUserData(userData)
+                withContext(mainDispatcher) {
+                    view.showUserData(userData)
 
-                    }
-                } catch (e: Exception) {
-                    withContext(Dispatchers.Main) {
-                        Log.e("Wrong","sometging went wrong")
-                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Log.e("Wrong", "sometging went wrong")
                 }
             }
-
         }
 
-
-
-
+    }
 }
-interface  ProfileView {
+
+
+
+
+
+
+interface ProfileView {
     fun showUserData(user: User?)
+    fun passwordConfirmation()
 
 }

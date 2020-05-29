@@ -26,7 +26,7 @@
         app:startIconDrawable="@android:drawable/presence_online">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/usernameTextRegister"
+            android:id="@+id/oldpass"
             android:layout_width="335dp"
             android:backgroundTint="#ffff"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         app:startIconDrawable="@android:drawable/sym_action_email">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailTextRegister"
+            android:id="@+id/newpass"
             android:layout_width="335dp"
             android:backgroundTint="#ffff"
             android:layout_height="wrap_content"

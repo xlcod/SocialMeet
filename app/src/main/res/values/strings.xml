@@ -20,5 +20,7 @@
     <string name="delete_quedada_yes">Yes</string>
     <string name="delete_quedada_neutral">Cancel</string>
     <string name="delete_quedada_no">No</string>
+    <string name="empty_quedadas">No appointments :(</string>
+
 
 </resources>

@@ -20,7 +20,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.quedadasAdd.QuedadasAddActivity"></activity>
+        <activity android:name=".ui.changePass.PasswordChangeActivity"></activity>
+        <activity android:name=".ui.quedadasAdd.QuedadasAddActivity" />
         <activity android:name=".ui.quedadasDetail.QuedadasDetail" />
         <activity android:name=".ui.profile.ProfileActivity" />
         <!--

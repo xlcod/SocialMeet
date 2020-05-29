@@ -19,4 +19,5 @@
     <string name="delete_quedada_yes">Sí</string>
     <string name="delete_quedada_neutral">No</string>
     <string name="delete_quedada_no">Cancelar</string>
+    <string name="empty_quedadas">Parece que no tienes quedadas :(</string>
 </resources>

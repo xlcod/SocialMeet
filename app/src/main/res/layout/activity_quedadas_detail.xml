@@ -173,6 +173,7 @@
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/deleteQuedadaButton"
         android:layout_width="wrap_content"
+        app:backgroundTint="#7C4DFF"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="20dp"

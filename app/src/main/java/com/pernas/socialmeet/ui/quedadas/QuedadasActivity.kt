@@ -178,12 +178,15 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
         Log.e("activitiy ",quedadaLista.size.toString())
        quedadasAdapter.notifyDataSetChanged()
         quedadasRecyclerView.visibility= View.VISIBLE
-        //emptyView.visibility = View.GONE
+        placeholder_empty.visibility = View.GONE
+        placeholder_text.visibility = View.GONE
+
 
     }
 
     override fun showEmpty() {
-        //emptyView.visibility = View.VISIBLE
+        placeholder_empty.visibility = View.VISIBLE
+        placeholder_text.visibility = View.VISIBLE
         quedadasRecyclerView.visibility = View.GONE
     }
 
