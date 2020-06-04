@@ -93,7 +93,7 @@ class QuedadasDetail : AppCompatActivity(), QuedadasDetailView {
         val editText = EditText(this)
 
 
-        alertDialogBuilder.setTitle("Editar Lugar")
+        alertDialogBuilder.setTitle(R.string.change_place)
         alertDialogBuilder.setView(editText)
 
         alertDialogBuilder.setPositiveButton(
@@ -122,7 +122,7 @@ class QuedadasDetail : AppCompatActivity(), QuedadasDetailView {
         val editText = EditText(this)
 
 
-        alertDialogBuilder.setTitle("Editar Nombre")
+        alertDialogBuilder.setTitle(R.string.change_quedadaName)
         alertDialogBuilder.setView(editText)
 
         alertDialogBuilder.setPositiveButton(
@@ -152,7 +152,7 @@ class QuedadasDetail : AppCompatActivity(), QuedadasDetailView {
         val editText = EditText(this)
 
 
-        alertDialogBuilder.setTitle("Editar Fecha")
+        alertDialogBuilder.setTitle(R.string.change_date_quedada)
         alertDialogBuilder.setView(editText)
 
         alertDialogBuilder.setPositiveButton(

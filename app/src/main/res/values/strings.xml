@@ -21,6 +21,18 @@
     <string name="delete_quedada_neutral">Cancel</string>
     <string name="delete_quedada_no">No</string>
     <string name="empty_quedadas">No appointments :(</string>
+    <string name="updatepass_email">"UPDATE PASSWORD / EMAIL "</string>
+    <string name="update_pass">Update Password</string>
+    <string name="old_pass">Current Password</string>
+    <string name="new_pass">New Password</string>
+    <string name="change_email">Change Email</string>
+    <string name="change_date_quedada">Change Date</string>
+    <string name="change_place">Change Place</string>
+    <string name="change_street">Change Street</string>
+    <string name="change_quedadaName">Change Name</string>
+    <string name="alert_ChangeEmail">To change email , fist put your current pass and tap your email</string>
+
+
 
 
 </resources>

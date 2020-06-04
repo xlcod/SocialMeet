@@ -182,7 +182,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20dp"
             app:backgroundTint="#7C4DFF"
-            android:text="Update password / Email"
+            android:text="@string/updatepass_email"
             app:icon="@drawable/change_password"
             />
 

@@ -20,4 +20,14 @@
     <string name="delete_quedada_neutral">No</string>
     <string name="delete_quedada_no">Cancelar</string>
     <string name="empty_quedadas">Parece que no tienes quedadas :(</string>
+    <string name="updatepass_email">Actualizar Contraseña/Email</string>
+    <string name="update_pass">Actualizar Contraseña</string>
+    <string name="old_pass">Contraseña Actual</string>
+    <string name="new_pass">Nueva Contraseña</string>
+    <string name="change_email">Cambiar Email</string>
+    <string name="change_date_quedada">"Cambiar Fecha "</string>
+    <string name="change_place">Cambiar Lugar</string>
+    <string name="change_street">Cambiar Calle</string>
+    <string name="change_quedadaName">Cambiar Nombre Quedada</string>
+    <string name="alert_ChangeEmail">Por favor para cambiar el email, primero pon tu contraseña actual y despues toca en tu email</string>
 </resources>

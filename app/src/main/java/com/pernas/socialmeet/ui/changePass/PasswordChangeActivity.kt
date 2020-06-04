@@ -41,6 +41,12 @@ class PasswordChangeActivity : AppCompatActivity(), ChangePassView {
             checkFields()
             presenter.changePassword(oldpass.text.toString(), newpass.text.toString())
         }
+
+        callPassToast()
+    }
+
+    private fun callPassToast() {
+        Toast.makeText(this, R.string.alert_ChangeEmail, Toast.LENGTH_LONG).show()
     }
 
     private fun changeEmail() {
@@ -48,7 +54,7 @@ class PasswordChangeActivity : AppCompatActivity(), ChangePassView {
         val editText = EditText(this)
 
 
-        alertDialogBuilder.setTitle("Editar Email")
+        alertDialogBuilder.setTitle(R.string.change_email)
         alertDialogBuilder.setView(editText)
 
         alertDialogBuilder.setPositiveButton(

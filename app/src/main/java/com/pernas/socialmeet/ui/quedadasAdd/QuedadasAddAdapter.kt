@@ -12,22 +12,15 @@ import com.pernas.socialmeet.R
 
 class QuedadasAddAdapter(private val listener: (List<Any?>) -> Unit) : RecyclerView.Adapter<QuedadasAddAdapter.ViewHolder>() {
 
-
-    private var usuarios = ArrayList<String>()
     var selectedUsers = arrayListOf<String>()
     var selectedUsersId = arrayListOf<String>()
     var hash= hashMapOf<Any,Any>()
 
     fun showUsers(users: HashMap<Any,Any>) {
        this.hash = users
-        for (key in hash) {
-            Log.e("AVER ",key.key.toString())
-            Log.e("AVER2 ",key.value.toString())
-        }
         notifyDataSetChanged()
     }
     fun addSelectedUsers() : ArrayList<String> {
-        Log.d("check",selectedUsers.size.toString())
         return selectedUsers
     }
     fun addQuedadasOtherUsers() : ArrayList<String>{
