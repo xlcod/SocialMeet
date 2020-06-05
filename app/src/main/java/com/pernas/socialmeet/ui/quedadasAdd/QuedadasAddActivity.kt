@@ -103,7 +103,7 @@ class QuedadasAddActivity : AppCompatActivity(), QuedadasAddView {
 
         }
         usernamesAddRecyclerView.adapter = quedadasAddAdapter
-        usernamesAddRecyclerView.layoutManager?.isMeasurementCacheEnabled = false;
+        usernamesAddRecyclerView.layoutManager?.isMeasurementCacheEnabled = false
 
         //usernamesAddRecyclerView.notifyDataSetChanged()
 
@@ -129,9 +129,9 @@ class QuedadasAddActivity : AppCompatActivity(), QuedadasAddView {
             }
         }
         addQuedadaButton.setOnClickListener {
-            var condition = checkFields()
-            var users=  quedadasAddAdapter.addSelectedUsers()
-            var usersid = quedadasAddAdapter.selectedUsersId
+            val condition = checkFields()
+            val users=  quedadasAddAdapter.addSelectedUsers()
+            val usersid = quedadasAddAdapter.selectedUsersId
             if (condition == false) {
                 return@setOnClickListener
             } else {

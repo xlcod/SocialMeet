@@ -39,7 +39,7 @@ class QuedadasPresenter(
 
             try {
 
-                var email: User? = remoteRepository.getUserData(auth)
+                val email: User? = remoteRepository.getUserData(auth)
                 remoteRepository.getQuedadas()
 
                 withContext(mainDispatcher) {
@@ -56,14 +56,10 @@ class QuedadasPresenter(
     }
 
     fun getQuedadas() {
-
         CoroutineScope(ioDispatcher).launch {
             try {
-                Log.d("Entra quedadas?", "SI ENTRA")
-                var quedadas: HashMap<Any, Any> = remoteRepository.getQuedadas()
+                val quedadas: HashMap<Any, Any> = remoteRepository.getQuedadas()
 
-
-                Log.d("Entra quedadas?", quedadas.toString())
                 withContext(mainDispatcher) {
                     if (quedadas.isEmpty()) {
                         view.showEmpty()

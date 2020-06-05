@@ -75,7 +75,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/main_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 app:layout_collapseMode="pin" />
@@ -90,7 +89,8 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="?attr/actionModeCloseDrawable" />
+                app:srcCompat="?attr/actionModeCloseDrawable"
+                android:contentDescription="TODO" />
 
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -118,7 +118,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/placeholder_empty" />
+        app:srcCompat="@drawable/placeholder_empty"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/placeholder_text"
@@ -190,7 +191,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/floatingButtonprofile"
-        app:srcCompat="@drawable/add_quedada" />
+        app:srcCompat="@drawable/add_quedada"
+        android:focusable="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonprofile"
@@ -207,7 +209,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/profile_icon" />
+        app:srcCompat="@drawable/profile_icon"
+        android:focusable="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

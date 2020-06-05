@@ -61,7 +61,7 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
             presenter.quedadaClicked(listOf(it))
         }
         quedadasRecyclerView.adapter = quedadasAdapter
-        quedadasRecyclerView.layoutManager?.isMeasurementCacheEnabled = false;
+        quedadasRecyclerView.layoutManager?.isMeasurementCacheEnabled = false
         val numberOfColumns = 2
         quedadasRecyclerView.layoutManager = (GridLayoutManager(this,numberOfColumns))
 
@@ -133,7 +133,6 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
             startActivity(Intent(this,QuedadasAddActivity::class.java),ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
     }
-
 
 
 

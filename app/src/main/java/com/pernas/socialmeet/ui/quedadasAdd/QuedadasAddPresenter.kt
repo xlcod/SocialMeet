@@ -30,23 +30,6 @@ class QuedadasAddPresenter(
         }
 
     }
-    fun addUsers(list: ArrayList<String>) {
-        CoroutineScope(ioDispatcher).launch {
-
-            try {
-                 remoteRepository.getUsers()
-                withContext(mainDispatcher) {
-
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-
-                }
-            }
-        }
-
-    }
-
 
     fun addQuedada(
         name: String,
@@ -79,7 +62,6 @@ class QuedadasAddPresenter(
             }
         }
     }
-
 }
 
 interface QuedadasAddView {

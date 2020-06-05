@@ -18,7 +18,6 @@ class PasswordChangePresenter(
 
             withContext(mainDispatcher) {
                 view.passwordConfirmation()
-
             }
         }
     }
@@ -29,7 +28,6 @@ class PasswordChangePresenter(
 
             withContext(mainDispatcher) {
                 view.emailUpdated()
-
             }
         }
     }
@@ -39,10 +37,8 @@ class PasswordChangePresenter(
     }
 }
 
-
 interface ChangePassView {
     fun passwordConfirmation()
     fun showEmail(email: String)
     fun emailUpdated()
-
 }

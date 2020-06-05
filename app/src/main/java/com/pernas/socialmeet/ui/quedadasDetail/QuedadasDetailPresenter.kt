@@ -62,7 +62,7 @@
             quedadaId: String
         ) {
             CoroutineScope(ioDispatcher).launch {
-                var success = remoteRepository.updateDetailData(nombre, fecha, lugar, calle, quedadaId)
+                val success = remoteRepository.updateDetailData(nombre, fecha, lugar, calle, quedadaId)
 
                 withContext(mainDispatcher) {
                     if (success) {

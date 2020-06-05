@@ -11,9 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
-
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,12 +34,12 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.0"
+                android:contentDescription="TODO" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView21"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -66,7 +63,8 @@
                     android:src="@drawable/usuarios_icon"
                     app:layout_constraintEnd_toStartOf="@+id/usuariosTextView"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/calleIconView" />
+                    app:layout_constraintTop_toBottomOf="@+id/calleIconView"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/calleIconView"
@@ -76,7 +74,8 @@
                     android:layout_marginTop="16dp"
                     android:src="@drawable/calle_icon"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lugarIconView" />
+                    app:layout_constraintTop_toBottomOf="@+id/lugarIconView"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/lugarIconView"
@@ -86,7 +85,8 @@
                     android:layout_marginTop="16dp"
                     android:src="@drawable/lugar_icon"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fechaIconView" />
+                    app:layout_constraintTop_toBottomOf="@+id/fechaIconView"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/fechaIconView"
@@ -96,7 +96,8 @@
                     android:layout_marginTop="24dp"
                     android:src="@drawable/fecha_icon"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+                    app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/calleTextView"
@@ -142,7 +143,6 @@
                     app:layout_constraintTop_toTopOf="@+id/usuariosIconView" />
 
                 <View
-                    android:id="@+id/view28"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="16dp"

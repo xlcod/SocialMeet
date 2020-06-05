@@ -72,7 +72,6 @@ class RegistrerActivity : AppCompatActivity(), RegisterView {
             intent,
             IMAGE_PICK_CODE
         )
-
     }
 
     companion object {

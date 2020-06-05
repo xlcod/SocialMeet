@@ -34,7 +34,7 @@ class QuedadasAdapter(private val listener: ( List<Any?>)  -> Unit) : RecyclerVi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        var keyList = ArrayList(quedadas.keys)
+        val keyList = ArrayList(quedadas.keys)
         holder.bind(quedadas[keyList[position]]!! as Collection<*>,listener)
 
     }
@@ -49,14 +49,12 @@ class QuedadasAdapter(private val listener: ( List<Any?>)  -> Unit) : RecyclerVi
 
 
         fun bind(pos: Collection<*>, listener: ( List<Any?>) -> Unit) {
-            Log.e("FOTOS DE QUEDADA",pos.toList()[6].toString())
 
             for (key in pos) {
-                println("Element at key ${key.toString()}")
-                var data = pos.toList()
-                var nombre = data[5].toString()
-                var fecha = data[0].toString()
-                var imageUrl = data[6].toString()
+                val data = pos.toList()
+                val nombre = data[5].toString()
+                val fecha = data[0].toString()
+                val imageUrl = data[6].toString()
                 quedadasTitle.text = nombre
                 quedadasDate.text = fecha
                 Picasso.get().load(imageUrl).into(imageviewItem)

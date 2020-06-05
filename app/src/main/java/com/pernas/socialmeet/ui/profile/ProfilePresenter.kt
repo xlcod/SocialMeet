@@ -18,7 +18,7 @@ class ProfilePresenter(
         CoroutineScope(ioDispatcher).launch {
 
             try {
-                var userData: User? = remoteRepository.getUserData(auth)
+                val userData: User? = remoteRepository.getUserData(auth)
 
                 withContext(mainDispatcher) {
                     view.showUserData(userData)
@@ -30,17 +30,11 @@ class ProfilePresenter(
                 }
             }
         }
-
     }
 }
-
-
-
-
 
 
 interface ProfileView {
     fun showUserData(user: User?)
     fun passwordConfirmation()
-
 }

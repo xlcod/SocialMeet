@@ -37,7 +37,7 @@ class QuedadasAddAdapter(private val listener: (List<Any?>) -> Unit) : RecyclerV
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        var keyList = ArrayList(hash.keys)
+        val keyList = ArrayList(hash.keys)
         holder.bind(keyList[position].toString(),(hash[keyList[position]] as String),selectedUsers,selectedUsersId)
         addSelectedUsers()
         addQuedadasOtherUsers()
@@ -63,26 +63,7 @@ class QuedadasAddAdapter(private val listener: (List<Any?>) -> Unit) : RecyclerV
                         selected.clear()
                         Log.e("NOT CLICKED " ," NO check LIcked")
                     }
-
-
-
             }
-
-
-
-
-
-
-
-
-            /*quedadasTitle.text = username
-            cb.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    test.add(username)
-                }else {
-                    Log.e("NOT CLICKED " ," NO check LIcked")
-                }
-            }*/
         }
 
         companion object {

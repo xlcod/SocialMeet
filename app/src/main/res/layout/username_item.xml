@@ -17,7 +17,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/usuarios_icon" />
+            android:src="@drawable/usuarios_icon"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/userAddtextView"
@@ -36,10 +37,9 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:focusable="false"
+            android:focusable="true"
             android:clickable="true"
             app:useMaterialThemeColors = "true" />
-
 
     </RelativeLayout>
 

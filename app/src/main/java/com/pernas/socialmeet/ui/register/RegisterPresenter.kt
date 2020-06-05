@@ -21,7 +21,6 @@ class RegisterPresenter(
             try {
                 val user = remoteRepository.doRegister(email, password, username, filePath)
 
-
                 withContext(mainDispatcher) {
 
                     view.openQuedadasActivity(user)

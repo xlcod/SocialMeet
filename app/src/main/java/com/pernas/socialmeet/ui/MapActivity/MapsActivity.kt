@@ -96,7 +96,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             )
 
             if (permission == PackageManager.PERMISSION_GRANTED) {
-                mMap?.isMyLocationEnabled = true
+                mMap.isMyLocationEnabled = true
             } else {
                 requestPermission(
                     Manifest.permission.ACCESS_FINE_LOCATION,
@@ -104,8 +104,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 )
             }
         }
-        mMap?.mapType = GoogleMap.MAP_TYPE_HYBRID
-        val mapSettings = mMap?.uiSettings
+        mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+        val mapSettings = mMap.uiSettings
         mapSettings?.isZoomControlsEnabled = true
 
         mMap.setPadding(0, 0, 0, 150)

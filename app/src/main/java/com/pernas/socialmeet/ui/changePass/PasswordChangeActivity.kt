@@ -58,16 +58,16 @@ class PasswordChangeActivity : AppCompatActivity(), ChangePassView {
         alertDialogBuilder.setView(editText)
 
         alertDialogBuilder.setPositiveButton(
-            "guardar",
-            { dialog, which ->
-                email_view_pass.setText(editText.text)
-                presenter.changeEmail(editText.text.toString(),oldpass.text.toString())
+            "guardar"
+        ) { dialog, which ->
+            email_view_pass.text = editText.text
+            presenter.changeEmail(editText.text.toString(),oldpass.text.toString())
 
-            })
+        }
 
         if (email_view_pass != null) {
             val parentViewGroup = editText.parent as ViewGroup?
-            parentViewGroup?.removeAllViews();
+            parentViewGroup?.removeAllViews()
         }
         editText.setText(email_view_pass.text)
         alertDialogBuilder.show()

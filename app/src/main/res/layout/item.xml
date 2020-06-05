@@ -3,9 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -16,7 +14,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Media -->
             <ImageView
                 android:id="@+id/quedadasImageViewItem"
                 android:layout_width="match_parent"
@@ -31,7 +28,6 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- Title, secondary and supporting text -->
                 <TextView
                     android:id="@+id/titleItem"
                     android:layout_width="wrap_content"
@@ -49,13 +45,7 @@
                     android:textColor="?android:attr/textColorSecondary" />
 
             </LinearLayout>
-
-
-
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
-
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>

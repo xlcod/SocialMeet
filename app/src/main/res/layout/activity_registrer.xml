@@ -7,7 +7,6 @@
     tools:context=".ui.register.RegistrerActivity"
     android:background="@drawable/grad">
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernameRegister"
         android:layout_width="335dp"
@@ -60,7 +59,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password"
         android:layout_width="335dp"
         android:layout_height="79dp"
         android:layout_margin="4dp"
@@ -135,6 +133,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

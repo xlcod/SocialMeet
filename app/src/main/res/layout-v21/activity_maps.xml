@@ -6,7 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment_container"
     android:orientation="vertical"
     tools:context=".ui.MapActivity.MapsActivity">
 
@@ -16,7 +15,6 @@
         android:layout_weight=".5">
 
         <RelativeLayout
-            android:id="@+id/relLayout1"
             android:layout_width="317dp"
             android:layout_height="49dp"
             android:layout_marginLeft="10dp"

@@ -169,14 +169,11 @@ class RemoteRepoCalls : RemoteRepository {
 
             val index = dataa.count()
 
-            Log.e("TEST", dataa?.toString())
-
 
             if (index != 0) {
                 for (i in 0 until index) {
                     val quedadasReference = dataa[i] as DocumentReference
                     val test = quedadasReference.get().await().data?.toMutableMap()
-                    Log.e("aqver", test.toString())
                     if (test != null) {
                         test.forEach {
                             val id = test["id"]

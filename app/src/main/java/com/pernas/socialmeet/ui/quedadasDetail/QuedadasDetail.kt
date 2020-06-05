@@ -64,25 +64,25 @@ class QuedadasDetail : AppCompatActivity(), QuedadasDetailView {
         val editText = EditText(this)
 
 
-        alertDialogBuilder.setTitle("Editar Calle")
+        alertDialogBuilder.setTitle(R.string.change_street)
         alertDialogBuilder.setView(editText)
 
         alertDialogBuilder.setPositiveButton(
-            "guardar",
-            { dialog, which ->
-                calleTextView.setText(editText.text)
-                presenter.updateFields(
-                    nameTextView.text.toString(),
-                    fechaTextView.text.toString(),
-                    lugarTextView.text.toString(),
-                    editText.text.toString(),
-                    quedadaId
-                )
-            })
+            "guardar"
+        ) { dialog, which ->
+            calleTextView.text = editText.text
+            presenter.updateFields(
+                nameTextView.text.toString(),
+                fechaTextView.text.toString(),
+                lugarTextView.text.toString(),
+                editText.text.toString(),
+                quedadaId
+            )
+        }
 
         if (calleTextView != null) {
             val parentViewGroup = editText.parent as ViewGroup?
-            parentViewGroup?.removeAllViews();
+            parentViewGroup?.removeAllViews()
         }
         editText.setText(calleTextView.text)
         alertDialogBuilder.show()
@@ -97,21 +97,21 @@ class QuedadasDetail : AppCompatActivity(), QuedadasDetailView {
         alertDialogBuilder.setView(editText)
 
         alertDialogBuilder.setPositiveButton(
-            "guardar",
-            { dialog, which ->
-                lugarTextView.setText(editText.text)
-                presenter.updateFields(
-                    nameTextView.text.toString(),
-                    fechaTextView.text.toString(),
-                    editText.text.toString(),
-                    calleTextView.text.toString(),
-                    quedadaId
-                )
-            })
+            "guardar"
+        ) { dialog, which ->
+            lugarTextView.text = editText.text
+            presenter.updateFields(
+                nameTextView.text.toString(),
+                fechaTextView.text.toString(),
+                editText.text.toString(),
+                calleTextView.text.toString(),
+                quedadaId
+            )
+        }
 
         if (lugarTextView != null) {
             val parentViewGroup = editText.parent as ViewGroup?
-            parentViewGroup?.removeAllViews();
+            parentViewGroup?.removeAllViews()
         }
         editText.setText(lugarTextView.text)
         alertDialogBuilder.show()
@@ -126,21 +126,21 @@ class QuedadasDetail : AppCompatActivity(), QuedadasDetailView {
         alertDialogBuilder.setView(editText)
 
         alertDialogBuilder.setPositiveButton(
-            "guardar",
-            { dialog, which ->
-                nameTextView.setText(editText.text)
-                presenter.updateFields(
-                    editText.text.toString(),
-                    fechaTextView.text.toString(),
-                    lugarTextView.text.toString(),
-                    calleTextView.text.toString(),
-                    quedadaId
-                )
-            })
+            "guardar"
+        ) { dialog, which ->
+            nameTextView.text = editText.text
+            presenter.updateFields(
+                editText.text.toString(),
+                fechaTextView.text.toString(),
+                lugarTextView.text.toString(),
+                calleTextView.text.toString(),
+                quedadaId
+            )
+        }
 
         if (fechaTextView != null) {
             val parentViewGroup = editText.parent as ViewGroup?
-            parentViewGroup?.removeAllViews();
+            parentViewGroup?.removeAllViews()
         }
         editText.setText(nameTextView.text)
         alertDialogBuilder.show()
@@ -156,26 +156,24 @@ class QuedadasDetail : AppCompatActivity(), QuedadasDetailView {
         alertDialogBuilder.setView(editText)
 
         alertDialogBuilder.setPositiveButton(
-            "guardar",
-            { dialog, which ->
-                fechaTextView.setText(editText.text)
-                presenter.updateFields(
-                    nameTextView.text.toString(),
-                    editText.text.toString(),
-                    lugarTextView.text.toString(),
-                    calleTextView.text.toString(),
-                    quedadaId
-                )
-            })
+            "guardar"
+        ) { dialog, which ->
+            fechaTextView.text = editText.text
+            presenter.updateFields(
+                nameTextView.text.toString(),
+                editText.text.toString(),
+                lugarTextView.text.toString(),
+                calleTextView.text.toString(),
+                quedadaId
+            )
+        }
 
         if (fechaTextView != null) {
             val parentViewGroup = editText.parent as ViewGroup?
-            parentViewGroup?.removeAllViews();
+            parentViewGroup?.removeAllViews()
         }
         editText.setText(fechaTextView.text)
         alertDialogBuilder.show()
-
-
     }
 
     override fun showData(
