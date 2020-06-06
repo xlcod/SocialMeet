@@ -3,6 +3,7 @@ package com.pernas.socialmeet.ui.data.remote
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.pernas.socialmeet.ui.model.User
 import kotlinx.coroutines.Deferred

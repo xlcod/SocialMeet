@@ -6,6 +6,7 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -81,7 +82,6 @@ class RemoteRepoCalls : RemoteRepository {
 
             saveFirestore(email, username, uid, url)
 
-            Log.d("URL", "${url}")
         } catch (e: Exception) {
             Log.e("ERROR", "SOMETHING WENT WRONG")
 
@@ -98,8 +98,6 @@ class RemoteRepoCalls : RemoteRepository {
 
         val uid: String? = auth.currentUser?.uid
 
-
-
         return try {
             val data = db
                 .collection("users")
@@ -112,7 +110,6 @@ class RemoteRepoCalls : RemoteRepository {
         } catch (e: Exception) {
             null
         }
-
     }
 
     //check for google sign in register or log in
@@ -134,7 +131,6 @@ class RemoteRepoCalls : RemoteRepository {
                 .await()
                 .documents
                 .isEmpty()
-            Log.e("varible", answer.toString())
 
             if (answer) {
                 saveFirestore(
@@ -241,7 +237,6 @@ class RemoteRepoCalls : RemoteRepository {
 
             saveQuedadasFirestore(name, place, street, url, myId, date, time, users, usersId)
 
-            Log.d("URLUSER${name}", "${url}")
         } catch (e: Exception) {
             Log.e("ERROR", "SOMETHING WENT WRONG")
         }
@@ -266,12 +261,12 @@ class RemoteRepoCalls : RemoteRepository {
         Log.e("MYUSERS", users.toString())
 
         val quedada: HashMap<String, Any> = hashMapOf(
-            "calle" to "${street}",
-            "fecha" to "${date}" + "," + "${time}",
-            "id" to "${myId}",
-            "imageQuedada" to "${url}",
-            "lugar" to "${place}",
-            "nombre" to "${name}",
+            "calle" to street,
+            "fecha" to date + "," + time,
+            "id" to myId,
+            "imageQuedada" to url,
+            "lugar" to place,
+            "nombre" to name,
             "usuarios" to users
         )
 
@@ -281,7 +276,7 @@ class RemoteRepoCalls : RemoteRepository {
             .await()
 
 
-        var ref = db.document("quedadas/${myId}")
+        val ref = db.document("quedadas/${myId}")
 
         try {
             Log.d("REFERENCIA?", ref.toString())
@@ -289,22 +284,20 @@ class RemoteRepoCalls : RemoteRepository {
         } catch (e: java.lang.Exception) {
             Log.e("ERROR", e.toString())
         }
-
-
     }
 
     //gets all users for checkbox
     override suspend fun getUsers(): HashMap<Any, Any> {
         val db = Firebase.firestore
-        var hashPrueba = hashMapOf<Any, Any>()
+        val hashPrueba = hashMapOf<Any, Any>()
         try {
             val data = db.collection("users")
                 .get()
                 .await()
                 .documents
                 .forEach {
-                    var id = it.get("id")
-                    var names = it.get("username")
+                    val id = it.get("id")
+                    val names = it.get("username")
                     hashPrueba.put(id.toString(), names!!)
                 }
         } catch (e: Exception) {
@@ -339,10 +332,18 @@ class RemoteRepoCalls : RemoteRepository {
     override suspend fun deleteQuedadas(id: String) {
         try {
             val db = Firebase.firestore
+            val ref= db.collection("quedadas").document(id)
+            db.collection("users")
+                .get()
+                .await()
+                .documents
+                .forEach {
+                    it.reference.update("quedadas",FieldValue.arrayRemove(ref))
+
+                }
             db.collection("quedadas").document(id)
                 .delete()
                 .await()
-
 
         } catch (e: Exception) {
             Log.e("ERROR BORRAR QUEDADA", e.toString())
@@ -356,10 +357,6 @@ class RemoteRepoCalls : RemoteRepository {
         calle: String,
         quedadaId: String
     ): Boolean {
-        Log.e("TESTDETAIL", nombre)
-        Log.e("TESTDETAIL2", fecha)
-        Log.e("TESTDETAIL3", lugar)
-        Log.e("TESTDETAIL4", calle)
         var condition = false
         try {
             val db = Firebase.firestore
@@ -399,8 +396,6 @@ class RemoteRepoCalls : RemoteRepository {
                     .await()
                 user.updatePassword(newPass).await()
             }
-
-
         } catch (e: java.lang.Exception) {
             Log.e("Error updating password", e.toString())
         }
@@ -426,13 +421,11 @@ class RemoteRepoCalls : RemoteRepository {
             }
            db.document("users/${userUid}").update("email",newEmail).await()
 
-
-
         } catch (e: java.lang.Exception) {
             Log.e("Error updating Email", e.toString())
         }
     }
-
+    
     //saves profile user data in firestore
     override suspend fun saveFirestore(
         email: String,
@@ -445,11 +438,11 @@ class RemoteRepoCalls : RemoteRepository {
         val list = arrayListOf<String>()
 
         val user: HashMap<String, Any> = hashMapOf(
-            "email" to "${email}",
+            "email" to email,
             "id" to "${uid}",
-            "imageProfile" to "${imageUrl}",
+            "imageProfile" to imageUrl,
             "quedadas" to list,
-            "username" to "${username}"
+            "username" to username
         )
 
         db.collection("users").document("${uid}")
