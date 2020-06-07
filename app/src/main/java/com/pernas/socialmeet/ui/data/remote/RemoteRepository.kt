@@ -28,4 +28,3 @@ interface RemoteRepository {
     suspend fun updateEmail(newEmail: String,pass: String)
 
 }
-

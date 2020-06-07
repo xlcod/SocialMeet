@@ -16,7 +16,7 @@ class QuedadasAddPresenter(
         CoroutineScope(ioDispatcher).launch {
 
             try {
-                var names = remoteRepository.getUsers()
+                val names = remoteRepository.getUsers()
 
                 withContext(mainDispatcher) {
                     view.addNames(names)
