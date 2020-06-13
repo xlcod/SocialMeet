@@ -41,6 +41,9 @@ class QuedadasDetail : AppCompatActivity(), QuedadasDetailView {
         deleteQuedadaButton.setOnClickListener {
             basicAlert(selectedData)
         }
+        userOut.setOnClickListener {
+            presenter.outFromQuedada(selectedData)
+        }
 
 
         fechaTextView.setOnClickListener {

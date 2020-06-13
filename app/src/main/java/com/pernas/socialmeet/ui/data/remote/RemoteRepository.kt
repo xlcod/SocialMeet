@@ -26,5 +26,6 @@ interface RemoteRepository {
     suspend fun updateDetailData(nombre: String, fecha: String, lugar: String, calle: String,quedadaId: String): Boolean
     suspend fun changePassword(oldpass : String,newPass:String)
     suspend fun updateEmail(newEmail: String,pass: String)
+    suspend fun userOutOfQuedada(id: String)
 
 }

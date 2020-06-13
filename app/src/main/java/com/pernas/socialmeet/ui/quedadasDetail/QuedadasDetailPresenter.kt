@@ -54,6 +54,22 @@
             }
         }
 
+        fun outFromQuedada(list: List<Any>){
+            CoroutineScope(ioDispatcher).launch {
+                try {
+                    val documentId = list[3].toString()
+                    remoteRepository.userOutOfQuedada(documentId)
+                    withContext(mainDispatcher) {
+                        view.deletedSuccess()
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Log.e("Wrong", "sometging went wrong  quedadas detail out of quedada")
+                    }
+                }
+            }
+        }
+
         fun updateFields(
             nombre: String,
             fecha: String,

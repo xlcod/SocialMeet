@@ -58,14 +58,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         bottomNavigation.show(2)
 
-
-        bottomNavigation.setOnShowListener {
-            Toast.makeText(
-                baseContext, "selected" + it.id,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
         bottomNavigation.setOnClickMenuListener {
             when (it.id) {
                 1 -> {

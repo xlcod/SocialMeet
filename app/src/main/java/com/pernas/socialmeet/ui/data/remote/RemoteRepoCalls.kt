@@ -255,8 +255,6 @@ class RemoteRepoCalls : RemoteRepository {
         usersId: ArrayList<String>
     ) {
         db = Firebase.firestore
-        val auth = FirebaseAuth.getInstance()
-        val list = arrayListOf<String>()
         val myId = db.collection("quedadas").document().id
         Log.e("MYUSERS", users.toString())
 
@@ -425,7 +423,29 @@ class RemoteRepoCalls : RemoteRepository {
             Log.e("Error updating Email", e.toString())
         }
     }
-    
+
+    override suspend fun userOutOfQuedada(id: String) {
+        try {
+            val db = Firebase.firestore
+            val auth = FirebaseAuth.getInstance()
+            val user = auth.currentUser
+            val userUid = auth.currentUser?.uid
+            val ref= db.collection("quedadas").document(id)
+
+            db.document("users/${userUid.toString()}")
+                .update("quedadas", FieldValue.arrayRemove(ref))
+
+            val userName = user?.displayName
+
+            db.collection("quedadas").document(id)
+                .update("usuarios",FieldValue.arrayRemove(userName))
+
+
+        } catch (e: Exception) {
+            Log.e("ERROR OUT FROM QUEDADA", e.toString())
+        }
+    }
+
     //saves profile user data in firestore
     override suspend fun saveFirestore(
         email: String,

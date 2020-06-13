@@ -93,15 +93,6 @@ class QuedadasActivity : AppCompatActivity(),QuedadasView {
             itemsswipetorefresh.isRefreshing = false
         }
 
-
-
-        bottomNavigation.setOnShowListener {
-            Toast.makeText(
-                baseContext, "selected" + it.id,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
         bottomNavigation.setOnClickMenuListener {
             when(it.id) {
                 1 -> {
