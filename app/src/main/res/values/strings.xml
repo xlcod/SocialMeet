@@ -1,3 +1,34 @@
 <resources>
-    <string name="app_name">SocialMeet</string>
+    <string name="app_name" translatable="false">SocialMeet</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="minimun">Minimum of 6 characters</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="signup">SIGN UP</string>
+    <string name="user_data">User Data</string>
+    <string name="quedada_name">Name</string>
+    <string name="place">Place</string>
+    <string name="street">street</string>
+    <string name="change_date">CHANGE DATE</string>
+    <string name="change_time">CHANGE TIME</string>
+    <string name="add_quedada">Add Appointment</string>
+    <string name="delete_quedada">Delete Appointment</string>
+    <string name="delete_quedada_confirmation">Delete Appointment Confirmation</string>
+    <string name="delete_quedada_question">¿Are you sure you want to delete the appointment?</string>
+    <string name="delete_quedada_yes">Yes</string>
+    <string name="delete_quedada_neutral">Cancel</string>
+    <string name="delete_quedada_no">No</string>
+    <string name="empty_quedadas">No appointments :(</string>
+    <string name="updatepass_email">"UPDATE PASSWORD / EMAIL "</string>
+    <string name="update_pass">Update Password</string>
+    <string name="old_pass">Current Password</string>
+    <string name="new_pass">New Password</string>
+    <string name="change_email">Change Email</string>
+    <string name="change_date_quedada">Change Date</string>
+    <string name="change_place">Change Place</string>
+    <string name="change_street">Change Street</string>
+    <string name="change_quedadaName">Change Name</string>
+    <string name="alert_ChangeEmail">To change email , fist put your current pass and tap your email</string>
 </resources>

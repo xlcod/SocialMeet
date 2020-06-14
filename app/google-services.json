@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "3171151337",
+    "firebase_url": "https://iosfinalcurso.firebaseio.com",
+    "project_id": "iosfinalcurso",
+    "storage_bucket": "iosfinalcurso.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3171151337:android:524d891a0f959cf3fc6f78",
+        "android_client_info": {
+          "package_name": "com.pernas.socialmeet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3171151337-9fev8qispbvb24m6t05pkri2uj6c93dl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1w1OfAbLVt_cIuD_dhJfX3u157ZNGxc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3171151337-9fev8qispbvb24m6t05pkri2uj6c93dl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "3171151337-b91i343go6tnkqailg8ul2lqa3ubmo7i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "con.manuespeso"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3171151337:android:fa5bd0084e574c78fc6f78",
+        "android_client_info": {
+          "package_name": "com.socialmeet.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3171151337-9fev8qispbvb24m6t05pkri2uj6c93dl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1w1OfAbLVt_cIuD_dhJfX3u157ZNGxc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3171151337-9fev8qispbvb24m6t05pkri2uj6c93dl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "3171151337-b91i343go6tnkqailg8ul2lqa3ubmo7i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "con.manuespeso"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

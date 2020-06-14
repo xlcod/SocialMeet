@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=25:20:BC:A3:8F:DB:C5:69:3D:80:92:39:06:5A:26:9A:80:6C:E4:30%3Bcom.pernas.socialmeet.ui.MapActivity
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    com.pernas.socialmeet.ui.MapActivity
+
+    SHA-1 certificate fingerprint:
+    25:20:BC:A3:8F:DB:C5:69:3D:80:92:39:06:5A:26:9A:80:6C:E4:30
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBhr2-hpmDvbQbcj0CdN5FGa5mCCdBQJr8</string>
+</resources>
