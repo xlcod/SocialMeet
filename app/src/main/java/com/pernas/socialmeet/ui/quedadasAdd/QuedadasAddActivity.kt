@@ -105,8 +105,6 @@ class QuedadasAddActivity : AppCompatActivity(), QuedadasAddView {
         usernamesAddRecyclerView.adapter = quedadasAddAdapter
         usernamesAddRecyclerView.layoutManager?.isMeasurementCacheEnabled = false
 
-        //usernamesAddRecyclerView.notifyDataSetChanged()
-
         presenter.getUsernames()
 
         addQuedadasImageView.setOnClickListener {

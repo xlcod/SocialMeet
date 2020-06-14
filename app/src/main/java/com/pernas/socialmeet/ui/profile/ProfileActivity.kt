@@ -48,6 +48,7 @@ class ProfileActivity : AppCompatActivity(),ProfileView {
         startActivity(intent)
     }
 
+    //show user data on profile
     override fun showUserData(user: User?) {
         username_field.text = user?.username.toString()
         username2_field.text = user?.username.toString()

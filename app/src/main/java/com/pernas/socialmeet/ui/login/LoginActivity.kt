@@ -80,7 +80,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
 
     override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         openQuedadasActivity(currentUser)
     }
@@ -103,7 +102,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
             firebaseAuthWithGoogle(account)
         } catch (e: ApiException) {
-            Log.e("algo mal", "muy mal")
             Toast.makeText(this, toString(), Toast.LENGTH_LONG).show()
             Log.e("ERRROR HANDLE RESULT ", e.toString())
 
@@ -119,7 +117,13 @@ class LoginActivity : AppCompatActivity(), LoginView {
                 val email = user?.email
                 val photoUrl = user?.photoUrl
                 val uid = user?.uid
-                presenter.checkUserGoogle(user,name.toString(),email.toString(),photoUrl.toString(),uid.toString())
+                presenter.checkUserGoogle(
+                    user,
+                    name.toString(),
+                    email.toString(),
+                    photoUrl.toString(),
+                    uid.toString()
+                )
                 startActivityGoogleUser()
 
             } else {
@@ -138,6 +142,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
             return
         }
     }
+
     private fun startActivityGoogleUser() {
         startActivity(Intent(this, QuedadasActivity::class.java))
     }

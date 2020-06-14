@@ -55,7 +55,6 @@ class QuedadasAddPresenter(
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Log.e("ERROe manu",e.toString())
                     view.onProcessEnds()
                     view.showSignUpError()
                 }

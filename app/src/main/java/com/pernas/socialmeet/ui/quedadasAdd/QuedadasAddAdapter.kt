@@ -24,7 +24,6 @@ class QuedadasAddAdapter(private val listener: (List<Any?>) -> Unit) : RecyclerV
         return selectedUsers
     }
     fun addQuedadasOtherUsers() : ArrayList<String>{
-        Log.d("check2",selectedUsersId.size.toString())
         return selectedUsersId
     }
 
@@ -41,7 +40,6 @@ class QuedadasAddAdapter(private val listener: (List<Any?>) -> Unit) : RecyclerV
         holder.bind(keyList[position].toString(),(hash[keyList[position]] as String),selectedUsers,selectedUsersId)
         addSelectedUsers()
         addQuedadasOtherUsers()
-        //holder.bind(usuarios[position],selectedUsers)
 
     }
 
@@ -49,15 +47,12 @@ class QuedadasAddAdapter(private val listener: (List<Any?>) -> Unit) : RecyclerV
         val quedadasTitle = view.findViewById<TextView>(R.id.userAddtextView)
         var cb = view.findViewById(R.id.cb) as CheckBox
 
-
-
         fun bind(id: String    ,pos: String, selected: ArrayList<String>,selectedId: ArrayList<String>) {
 
                 quedadasTitle.text = pos
                 cb.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
                         selected.add(pos)
-                        Log.e("el id " ,id)
                         selectedId.add(id)
                     }else {
                         selected.clear()

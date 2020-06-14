@@ -36,11 +36,17 @@ class LoginPresenter(
         }
     }
 
-    fun checkUserGoogle(user: FirebaseUser?,name:String?,email: String?,photoUrl: String?,uid: String?) {
+    fun checkUserGoogle(
+        user: FirebaseUser?,
+        name: String?,
+        email: String?,
+        photoUrl: String?,
+        uid: String?
+    ) {
         view.onProcessStarts()
         CoroutineScope(ioDispatcher).launch {
             try {
-                var googleUser = remoteRepository.checkifUserExist(user,name,email,photoUrl,uid)
+                var googleUser = remoteRepository.checkifUserExist(user, name, email, photoUrl, uid)
                 withContext(mainDispatcher) {
                     view.onProcessEnds()
                 }

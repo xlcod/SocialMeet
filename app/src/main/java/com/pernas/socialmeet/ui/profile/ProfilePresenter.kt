@@ -33,7 +33,6 @@ class ProfilePresenter(
     }
 }
 
-
 interface ProfileView {
     fun showUserData(user: User?)
     fun passwordConfirmation()

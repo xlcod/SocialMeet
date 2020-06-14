@@ -84,7 +84,6 @@ class RemoteRepoCalls : RemoteRepository {
 
         } catch (e: Exception) {
             Log.e("ERROR", "SOMETHING WENT WRONG")
-
         }
     }
 
@@ -165,7 +164,6 @@ class RemoteRepoCalls : RemoteRepository {
 
             val index = dataa.count()
 
-
             if (index != 0) {
                 for (i in 0 until index) {
                     val quedadasReference = dataa[i] as DocumentReference
@@ -188,6 +186,7 @@ class RemoteRepoCalls : RemoteRepository {
         return hashMap
     }
 
+    //add a quedada
     override suspend fun addQuedada(
         name: String,
         place: String,
@@ -327,16 +326,17 @@ class RemoteRepoCalls : RemoteRepository {
         }
     }
 
+    //delete a quedada when pressed
     override suspend fun deleteQuedadas(id: String) {
         try {
             val db = Firebase.firestore
-            val ref= db.collection("quedadas").document(id)
+            val ref = db.collection("quedadas").document(id)
             db.collection("users")
                 .get()
                 .await()
                 .documents
                 .forEach {
-                    it.reference.update("quedadas",FieldValue.arrayRemove(ref))
+                    it.reference.update("quedadas", FieldValue.arrayRemove(ref))
 
                 }
             db.collection("quedadas").document(id)
@@ -348,6 +348,7 @@ class RemoteRepoCalls : RemoteRepository {
         }
     }
 
+    //update detail data when pressed
     override suspend fun updateDetailData(
         nombre: String,
         fecha: String,
@@ -399,7 +400,8 @@ class RemoteRepoCalls : RemoteRepository {
         }
     }
 
-    override suspend fun updateEmail(newEmail: String,pass: String) {
+    //update email when pressed
+    override suspend fun updateEmail(newEmail: String, pass: String) {
         val auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
         val db = Firebase.firestore
@@ -417,20 +419,21 @@ class RemoteRepoCalls : RemoteRepository {
                     .await()
                 user.updateEmail(newEmail).await()
             }
-           db.document("users/${userUid}").update("email",newEmail).await()
+            db.document("users/${userUid}").update("email", newEmail).await()
 
         } catch (e: java.lang.Exception) {
             Log.e("Error updating Email", e.toString())
         }
     }
 
+    // remove user from quedada
     override suspend fun userOutOfQuedada(id: String) {
         try {
             val db = Firebase.firestore
             val auth = FirebaseAuth.getInstance()
             val user = auth.currentUser
             val userUid = auth.currentUser?.uid
-            val ref= db.collection("quedadas").document(id)
+            val ref = db.collection("quedadas").document(id)
 
             db.document("users/${userUid.toString()}")
                 .update("quedadas", FieldValue.arrayRemove(ref))
@@ -438,7 +441,7 @@ class RemoteRepoCalls : RemoteRepository {
             val userName = user?.displayName
 
             db.collection("quedadas").document(id)
-                .update("usuarios",FieldValue.arrayRemove(userName))
+                .update("usuarios", FieldValue.arrayRemove(userName))
 
 
         } catch (e: Exception) {

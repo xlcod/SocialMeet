@@ -222,10 +222,9 @@ class QuedadasDetail : AppCompatActivity(), QuedadasDetailView {
             .setTitle(resources.getString(R.string.delete_quedada_confirmation))
             .setMessage(resources.getString(R.string.delete_quedada_question))
             .setNeutralButton(resources.getString(R.string.delete_quedada_neutral)) { dialog, which ->
-                // Respond to neutral button press
             }
             .setNegativeButton(resources.getString(R.string.delete_quedada_no)) { dialog, which ->
-                // Respond to negative button press
+
             }
             .setPositiveButton(resources.getString(R.string.delete_quedada_yes)) { dialog, which ->
                 presenter.deleteQuedada(data)

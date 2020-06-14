@@ -27,7 +27,6 @@ class QuedadasAdapter(private val listener: ( List<Any?>)  -> Unit) : RecyclerVi
     }
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
